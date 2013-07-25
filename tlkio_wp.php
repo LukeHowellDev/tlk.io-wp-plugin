@@ -25,7 +25,7 @@ License:
 
 */
 
-class wp_tlkio {
+class WP_TlkIo {
 
 	/*--------------------------------------------*
 	 * Constants
@@ -61,7 +61,7 @@ class wp_tlkio {
 		$this->register_scripts_and_styles();
 
 		// Register the shortcode [tlkio]
-		add_shortcode( 'tlkio', array( &$this, 'render_shortcode' ) );
+		add_shortcode( 'tlkio', array( &$this, 'render_tlkio_shortcode' ) );
 
 		if ( is_admin() ) {
 			//this will run when in the WordPress admin
@@ -75,25 +75,39 @@ class wp_tlkio {
 		 * For more information:
 		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-		add_action( 'your_action_here', array( &$this, 'action_callback_method_name' ) );
-		add_filter( 'your_filter_here', array( &$this, 'filter_callback_method_name' ) );
+		// add_action( 'your_action_here', array( &$this, 'action_callback_method_name' ) );
+		// add_filter( 'your_filter_here', array( &$this, 'filter_callback_method_name' ) );
+		// add_action( 'admin_menu', array( &$this, 'wp_tlkio_plugin_menu' ) );
 	}
 
-	function action_callback_method_name() {
-		// TODO define your action method here
+	function wp_tlkio_plugin_menu() {
+		add_options_page( 'WP TlkIo Options', 'WP TlkIo', 'manage_options', 'wp_tlkio', array( &$this, 'wp_tlkio_plugin_options' ) );
 	}
 
-	function filter_callback_method_name() {
-		// TODO define your filter method here
+	function wp_tlkio_plugin_options() {
+		if( ! current_user_can( 'manage_options' ) ) {
+			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		}
+		echo '<div class="wrap">';
+		echo '<p>Here is where the page will go.</p>';
+		echo '</div>';
 	}
 
-	function render_shortcode($atts) {
+	function render_tlkio_shortcode($atts) {
 		// Extract the attributes
 		extract(shortcode_atts(array(
-			'attr1' => 'foo', //foo is a default value
-			'attr2' => 'bar'
+			'channel'    => 'lobby',
+			'width'      => '400px',
+			'height'     => '400px',
+			'stylesheet' => ''
 			), $atts));
-		// you can now access the attribute values using $attr1 and $attr2
+		
+		echo '<div id="tlkio"';
+		echo ' data-channel="' . $channel . '"';
+		echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';"';
+		echo ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
+		echo '></div>';
+		echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 	}
 
 	/**
@@ -136,5 +150,3 @@ class wp_tlkio {
 
 } // end class
 new wp_tlkio();
-
-?>
