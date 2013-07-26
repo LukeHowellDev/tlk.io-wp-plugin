@@ -38,7 +38,7 @@ class WP_TlkIo {
 	 */
 	function __construct() {
 		//register an activation hook for the plugin
-		register_activation_hook( __FILE__, array( &$this, 'install_wp_tlkio' ) );
+		// register_activation_hook( __FILE__, array( &$this, 'install_wp_tlkio' ) );
 
 		//Hook up to the init action
 		add_action( 'init', array( &$this, 'init_wp_tlkio' ) );
@@ -47,9 +47,9 @@ class WP_TlkIo {
 	/**
 	 * Runs when the plugin is activated
 	 */
-	function install_wp_tlkio() {
-		// do not generate any output here
-	}
+	// function install_wp_tlkio() {
+	// 	// do not generate any output here
+	// }
 
 	/**
 	 * Runs when the plugin is initialized
@@ -58,15 +58,20 @@ class WP_TlkIo {
 		// Setup localization
 		load_plugin_textdomain( self::slug, false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 		// Load JavaScript and stylesheets
-		$this->register_scripts_and_styles();
+		// $this->register_scripts_and_styles();
 
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$this, 'render_tlkio_shortcode' ) );
 
-		if ( is_admin() ) {
+		// if ( is_admin() ) {
 			//this will run when in the WordPress admin
-		} else {
+		// } else {
 			//this will run when on the frontend
+		// }
+
+		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
+			add_filter( 'mce_external_plugins', array( &$this, 'register_tinymce_plugin' ) );
+			add_filter( 'mce_buttons', array( &$this, 'register_tinymce_button' ) );
 		}
 
 		/*
@@ -80,27 +85,14 @@ class WP_TlkIo {
 		// add_action( 'admin_menu', array( &$this, 'wp_tlkio_plugin_menu' ) );
 	}
 
-	function wp_tlkio_plugin_menu() {
-		add_options_page( 'WP TlkIo Options', 'WP TlkIo', 'manage_options', 'wp_tlkio', array( &$this, 'wp_tlkio_plugin_options' ) );
-	}
-
-	function wp_tlkio_plugin_options() {
-		if( ! current_user_can( 'manage_options' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-		}
-		echo '<div class="wrap">';
-		echo '<p>Here is where the page will go.</p>';
-		echo '</div>';
-	}
-
-	function render_tlkio_shortcode($atts) {
+	function render_tlkio_shortcode( $atts ) {
 		// Extract the attributes
-		extract(shortcode_atts(array(
+		extract(shortcode_atts( array(
 			'channel'    => 'lobby',
 			'width'      => '400px',
 			'height'     => '400px',
 			'stylesheet' => ''
-			), $atts));
+			), $atts) );
 		
 		echo '<div id="tlkio"';
 		echo ' data-channel="' . $channel . '"';
@@ -110,19 +102,32 @@ class WP_TlkIo {
 		echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 	}
 
+	function register_tinymce_plugin( $plugin_array ) {
+		// $a = plugin_url(__FILE__).'wp-tlkio.js';
+		// echo $a;
+		// die();
+		$plugin_array[ 'wp_tlkio' ] = plugins_url( 'wp-tlkio.js', __FILE__ );
+		return $plugin_array;
+	}
+
+	function register_tinymce_button( $buttons ) {
+		array_push( $buttons, 'wp_tlkio' );
+		return $buttons;
+	}
+
 	/**
 	 * Registers and enqueues stylesheets for the administration panel and the
 	 * public facing site.
 	 */
-	private function register_scripts_and_styles() {
-		if ( is_admin() ) {
-			$this->load_file( self::slug . '-admin-script', '/js/admin.js', true );
-			$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
-		} else {
-			$this->load_file( self::slug . '-script', '/js/widget.js', true );
-			$this->load_file( self::slug . '-style', '/css/widget.css' );
-		} // end if/else
-	} // end register_scripts_and_styles
+	// private function register_scripts_and_styles() {
+	// 	if ( is_admin() ) {
+	// 		$this->load_file( self::slug . '-admin-script', '/js/admin.js', true );
+	// 		$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
+	// 	} else {
+	// 		$this->load_file( self::slug . '-script', '/js/widget.js', true );
+	// 		$this->load_file( self::slug . '-style', '/css/widget.css' );
+		// } // end if/else
+	// } // end register_scripts_and_styles
 
 	/**
 	 * Helper function for registering and enqueueing scripts and styles.
@@ -131,22 +136,22 @@ class WP_TlkIo {
 	 * @file_path		The path to the actual file
 	 * @is_script		Optional argument for if the incoming file_path is a JavaScript source file.
 	 */
-	private function load_file( $name, $file_path, $is_script = false ) {
+	// private function load_file( $name, $file_path, $is_script = false ) {
 
-		$url = plugins_url($file_path, __FILE__);
-		$file = plugin_dir_path(__FILE__) . $file_path;
+	// 	$url = plugins_url($file_path, __FILE__);
+	// 	$file = plugin_dir_path(__FILE__) . $file_path;
 
-		if( file_exists( $file ) ) {
-			if( $is_script ) {
-				wp_register_script( $name, $url, array('jquery') ); //depends on jquery
-				wp_enqueue_script( $name );
-			} else {
-				wp_register_style( $name, $url );
-				wp_enqueue_style( $name );
-			} // end if
-		} // end if
+	// 	if( file_exists( $file ) ) {
+	// 		if( $is_script ) {
+	// 			wp_register_script( $name, $url, array('jquery') ); //depends on jquery
+	// 			wp_enqueue_script( $name );
+	// 		} else {
+	// 			wp_register_style( $name, $url );
+	// 			wp_enqueue_style( $name );
+	// 		} // end if
+	// 	} // end if
 
-	} // end load_file
+	// } // end load_file
 
 } // end class
-new wp_tlkio();
+new WP_TlkIo;
