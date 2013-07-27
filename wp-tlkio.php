@@ -1,10 +1,11 @@
 <?php
 /*
 Plugin Name: WP tlk.io
-Plugin URI: http://www.truemediaconcepts.com
-Description: A plugin to integrate tlk.io chat on any page of your website.
+Plugin URI: http://truemediaconcepts.com
+Description: A plugin to integrate <a href="http://tlk.io">tlk.io chat</a> on any page of your website.
 Version: 0.1
-Author: Brad Bodine, Luke Howell
+Author URI: http://truemediaconcepts.com/
+Author: True Media Concepts
 Author Email: support@truemediaconcepts.com
 License:
 
