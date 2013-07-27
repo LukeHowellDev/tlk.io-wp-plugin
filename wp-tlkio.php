@@ -90,7 +90,7 @@ class WP_TlkIo {
 		extract(shortcode_atts( array(
 			'channel'    => 'lobby',
 			'width'      => '400px',
-			'height'     => '400px',
+			'height'     => 'auto',
 			'stylesheet' => ''
 			), $atts) );
 		
