@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: wp_tlkio
+Plugin Name: WP tlk.io
 Plugin URI: http://www.truemediaconcepts.com
 Description: A plugin to integrate tlk.io chat on any page of your website.
 Version: 0.1
