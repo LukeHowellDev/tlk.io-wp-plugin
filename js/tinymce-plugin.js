@@ -12,7 +12,7 @@
             ed.addButton('wp_tlkio', {
                 title : 'Insert tlk.io Shortcode',
                 cmd : 'wp_tlkio',
-                image : url + '/wp-tlkio.png'
+                image : url + '/../img/tinymce-button.png'
             });
  
             ed.addCommand('wp_tlkio', function() {

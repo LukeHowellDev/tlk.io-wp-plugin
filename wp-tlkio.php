@@ -107,7 +107,7 @@ class WP_TlkIo {
 		// $a = plugin_url(__FILE__).'wp-tlkio.js';
 		// echo $a;
 		// die();
-		$plugin_array[ 'wp_tlkio' ] = plugins_url( 'wp-tlkio.js', __FILE__ );
+		$plugin_array[ 'wp_tlkio' ] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
 		return $plugin_array;
 	}
 
@@ -120,15 +120,15 @@ class WP_TlkIo {
 	 * Registers and enqueues stylesheets for the administration panel and the
 	 * public facing site.
 	 */
-	// private function register_scripts_and_styles() {
-	// 	if ( is_admin() ) {
-	// 		$this->load_file( self::slug . '-admin-script', '/js/admin.js', true );
-	// 		$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
-	// 	} else {
-	// 		$this->load_file( self::slug . '-script', '/js/widget.js', true );
-	// 		$this->load_file( self::slug . '-style', '/css/widget.css' );
-		// } // end if/else
-	// } // end register_scripts_and_styles
+	private function register_scripts_and_styles() {
+		if ( is_admin() ) {
+			// $this->load_file( self::slug . '-admin-script', '/js/admin.js', true );
+			$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
+		} //else {
+			// $this->load_file( self::slug . '-script', '/js/widget.js', true );
+			// $this->load_file( self::slug . '-style', '/css/widget.css' );
+		//} // end if/else
+	} // end register_scripts_and_styles
 
 	/**
 	 * Helper function for registering and enqueueing scripts and styles.
@@ -137,22 +137,22 @@ class WP_TlkIo {
 	 * @file_path		The path to the actual file
 	 * @is_script		Optional argument for if the incoming file_path is a JavaScript source file.
 	 */
-	// private function load_file( $name, $file_path, $is_script = false ) {
+	private function load_file( $name, $file_path, $is_script = false ) {
 
-	// 	$url = plugins_url($file_path, __FILE__);
-	// 	$file = plugin_dir_path(__FILE__) . $file_path;
+		$url = plugins_url($file_path, __FILE__);
+		$file = plugin_dir_path(__FILE__) . $file_path;
 
-	// 	if( file_exists( $file ) ) {
-	// 		if( $is_script ) {
-	// 			wp_register_script( $name, $url, array('jquery') ); //depends on jquery
-	// 			wp_enqueue_script( $name );
-	// 		} else {
-	// 			wp_register_style( $name, $url );
-	// 			wp_enqueue_style( $name );
-	// 		} // end if
-	// 	} // end if
+		if( file_exists( $file ) ) {
+			if( $is_script ) {
+				wp_register_script( $name, $url, array('jquery') ); //depends on jquery
+				wp_enqueue_script( $name );
+			} else {
+				wp_register_style( $name, $url );
+				wp_enqueue_style( $name );
+			} // end if
+		} // end if
 
-	// } // end load_file
+	} // end load_file
 
 } // end class
 new WP_TlkIo;
