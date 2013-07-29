@@ -10,7 +10,7 @@
          */
         init : function(ed, url) {
             ed.addButton('wp_tlkio', {
-                title : 'Chat Room',
+                title : 'Insert tlk.io Shortcode',
                 cmd : 'wp_tlkio',
                 image : url + '/wp-tlkio.png'
             });
