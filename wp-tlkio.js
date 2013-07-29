@@ -16,34 +16,12 @@
             });
  
             ed.addCommand('wp_tlkio', function() {
-                var channel = prompt( "What channel name do you want?" );
-                var width = prompt( "What is the width for your chat room? (px,%)" );
-                var height = prompt( "What is the height for your chat room? (px,%)" );
-                var stylesheet = prompt( "What is the stylesheet? (Blank for none) " );
-
-                shortcode  = '[tlkio';
-                shortcode += channel ? ' channel="' + channel + '"' : '';
-                shortcode += width ? ' width="' + width + '"' : '';
-                shortcode += height ? ' height="' + height + '"' : '';
-                shortcode += stylesheet ? ' stylesheet="' + stylesheet + '"' : '';
-                shortcode += ']';
-                ed.execCommand('mceInsertContent', false, shortcode);
-
+                // triggers the thickbox
+                var width = jQuery(window).width(), H = jQuery(window).height(), W = ( 720 < width ) ? 720 : width;
+                W = W - 80;
+                H = H - 84;
+                tb_show( 'WP tlk.io Plugin', '#TB_inline?width=' + W + '&height=' + H + '&inlineId=wp-tlkio-form' );
             });
-        },
- 
-        /**
-         * Creates control instances based in the incomming name. This method is normally not
-         * needed since the addButton method of the tinymce.Editor class is a more easy way of adding buttons
-         * but you sometimes need to create more complex controls like listboxes, split buttons etc then this
-         * method can be used to create those.
-         *
-         * @param {String} n Name of the control to create.
-         * @param {tinymce.ControlManager} cm Control manager to use inorder to create new control.
-         * @return {tinymce.ui.Control} New control instance or null if no control was created.
-         */
-        createControl : function(n, cm) {
-            return null;
         },
  
         /**
@@ -64,4 +42,69 @@
  
     // Register plugin
     tinymce.PluginManager.add( 'wp_tlkio', tinymce.plugins.wp_tlkio );
+
+    // executes this when the DOM is ready
+    jQuery(function(){
+        // creates a form to be displayed everytime the button is clicked
+        // you should achieve this using AJAX instead of direct html code like this
+        var form = jQuery('<div id="wp-tlkio-form"><table id="wp-tlkio-table" class="form-table">\
+            <tr>\
+                <th><label for="wp-tlkio-channel">Channel</label></th>\
+                <td><input type="text" id="wp-tlkio-channel" name="channel" value="" /><br />\
+                <small>specify the channel name for the chat room.  Leave blank for default channel of "Lobby".</small></td>\
+            </tr>\
+            <tr>\
+                <th><label for="wp-tlkio-width">Width</label></th>\
+                <td><input type="text" name="width" id="wp-tlkio-width" value="" /><br />\
+                <small>specify the width of the chat.  Leave blank for the default of 400px.</small>\
+            </tr>\
+            <tr>\
+                <th><label for="wp-tlkio-height">Height</label></th>\
+                <td><input type="text" name="height" id="wp-tlkio-height" value="" /><br />\
+                <small>specify the height of the chat.  Leave blank for the default of 400px.</small>\
+            </tr>\
+            <tr>\
+                <th><label for="wp-tlkio-css">Custom CSS File</label></th>\
+                <td><input type="text" name="css" id="wp-tlkio-css" value="" /><br />\
+                <small>specify a custom CSS file to use.  Leave blank for no custom CSS.</small>\
+            </tr>\
+        </table>\
+        <p class="submit">\
+            <input type="button" id="wp-tlkio-submit" class="button-primary" value="Insert Chat Room" name="submit" />\
+        </p>\
+        </div>');
+        
+        var table = form.find('table');
+        form.appendTo('body').hide();
+        
+        // handles the click event of the submit button
+        form.find('#wp-tlkio-submit').click(function(){
+            // defines the options and their default values
+            // again, this is not the most elegant way to do this
+            // but well, this gets the job done nonetheless
+            var options = { 
+                'channel'    : 'lobby',
+                'width'      : '400px',
+                'height'     : '400px',
+                'css'        : ''
+                };
+            var shortcode = '[tlkio';
+            
+            for( var index in options) {
+                var value = table.find('#wp-tlkio-' + index).val();
+                
+                // attaches the attribute to the shortcode only if it's different from the default value
+                if ( value !== options[index] )
+                    shortcode += ' ' + index + '="' + value + '"';
+            }
+            
+            shortcode += ']';
+            
+            // inserts the shortcode into the active editor
+            tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+            
+            // closes Thickbox
+            tb_remove();
+        });
+    });
 })();
