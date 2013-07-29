@@ -83,9 +83,9 @@
             // again, this is not the most elegant way to do this
             // but well, this gets the job done nonetheless
             var options = { 
-                'channel'    : 'lobby',
-                'width'      : '400px',
-                'height'     : '400px',
+                'channel'    : '',
+                'width'      : '',
+                'height'     : '',
                 'css'        : ''
                 };
             var shortcode = '[tlkio';
