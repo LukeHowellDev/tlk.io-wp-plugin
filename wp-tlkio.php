@@ -59,7 +59,7 @@ class WP_TlkIo {
 		// Setup localization
 		load_plugin_textdomain( self::slug, false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 		// Load JavaScript and stylesheets
-		// $this->register_scripts_and_styles();
+		$this->register_scripts_and_styles();
 
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$this, 'render_tlkio_shortcode' ) );
