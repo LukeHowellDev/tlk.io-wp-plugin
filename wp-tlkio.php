@@ -104,7 +104,7 @@ class WP_TlkIo {
 				update_option( $chat_option, false );
 			}
 
-			$is_chat_on = get_option( $chat_option, true );
+			$is_chat_on = get_option( $chat_option, false );
 
 			$switch_link =  $is_chat_on ? 
 				'<a href="' . add_query_arg( 'tlkio_chat', 'off', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 

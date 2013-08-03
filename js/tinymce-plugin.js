@@ -48,62 +48,71 @@
         // creates a form to be displayed everytime the button is clicked
         // you should achieve this using AJAX instead of direct html code like this
         var form = jQuery('<div id="wp-tlkio-popup" class="no_preview">\
-    <div id="wp-tlkio-shortcode-wrap">\
-        <div id="wp-tlkio-sc-form-wrap">\
-            <div id="wp-tlkio-sc-form-head">Insert tlk.io Shortcode</div>\
-            <form method="post" id="wp-tlkio-sc-form">\
-                <div id="_zilla_shortcode" class="hidden">[zilla_alert style="{{style}}"] {{content}} [/zilla_alert]</div>\
-                <div id="_zilla_popup" class="hidden">alert</div>\
-                <table id="wp-tlkio-sc-form-table">\
-                    <div id="_zilla_ushortcode" class="hidden">[zilla_alert style="white"] Your Alert! [/zilla_alert]</div>\
-                    <tbody>\
-                        <tr class="form-row">\
-                            <td class="label">Channel</td>\
-                            <td class="field">\
-                                <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">\
-                                <span class="wp-tlkio-form-desc">Specify the channel name for the chat room. Leave blank for default channel of "Lobby".</span>\
-                            </td>\
-                        </tr>\
-                    </tbody>\
-                    <tbody>\
-                        <tr class="form-row">\
-                            <td class="label">Width</td>\
-                            <td class="field">\
-                                <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">\
-                                <span class="wp-tlkio-form-desc">Specify the width of the chat. Leave blank for the default of 400px.</span>\
-                            </td>\
-                        </tr>\
-                    </tbody>\
-                    <tbody>\
-                        <tr class="form-row">\
-                            <td class="label">Height</td>\
-                            <td class="field">\
-                                <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">\
-                                <span class="wp-tlkio-form-desc">Specify the height of the chat. Leave blank for the default of 400px.</span>\
-                            </td>\
-                        </tr>\
-                    </tbody>\
-                    <tbody>\
-                        <tr class="form-row">\
-                            <td class="label">Custom CSS File</td>\
-                            <td class="field">\
-                                <input name="css" id="wp-tlkio-css" class="wp-tlkio-input">\
-                                <span class="wp-tlkio-form-desc">Specify a custom CSS file to use. Leave blank for no custom CSS.</span>\
-                            </td>\
-                        </tr>\
-                    </tbody>\
-                    <tbody>\
-                        <tr class="form-row">\
-                            <td class="label"></td>\
-                            <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">Insert Shortcode</a></td>\
-                        </tr>\
-                    </tbody>\
-                </table>\
-            </form>\
-        </div>\
-        <div class="clear"></div>\
-    </div>\
-</div>');
+                            <div id="wp-tlkio-shortcode-wrap">\
+                                <div id="wp-tlkio-sc-form-wrap">\
+                                    <div id="wp-tlkio-sc-form-head">Insert tlk.io Shortcode</div>\
+                                    <form method="post" id="wp-tlkio-sc-form">\
+                                        <div id="_zilla_shortcode" class="hidden">[zilla_alert style="{{style}}"] {{content}} [/zilla_alert]</div>\
+                                        <div id="_zilla_popup" class="hidden">alert</div>\
+                                        <table id="wp-tlkio-sc-form-table">\
+                                            <div id="_zilla_ushortcode" class="hidden">[zilla_alert style="white"] Your Alert! [/zilla_alert]</div>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label">Channel</td>\
+                                                    <td class="field">\
+                                                        <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">\
+                                                        <span class="wp-tlkio-form-desc">Specify the channel name for the chat room. Leave blank for default channel of "Lobby".</span>\
+                                                    </td>\
+                                                </tr>\
+                                            </tbody>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label">Width</td>\
+                                                    <td class="field">\
+                                                        <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">\
+                                                        <span class="wp-tlkio-form-desc">Specify the width of the chat. Leave blank for the default of 400px.</span>\
+                                                    </td>\
+                                                </tr>\
+                                            </tbody>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label">Height</td>\
+                                                    <td class="field">\
+                                                        <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">\
+                                                        <span class="wp-tlkio-form-desc">Specify the height of the chat. Leave blank for the default of 400px.</span>\
+                                                    </td>\
+                                                </tr>\
+                                            </tbody>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label">Custom CSS File</td>\
+                                                    <td class="field">\
+                                                        <input name="css" id="wp-tlkio-css" class="wp-tlkio-input">\
+                                                        <span class="wp-tlkio-form-desc">Specify a custom CSS file to use. Leave blank for no custom CSS.</span>\
+                                                    </td>\
+                                                </tr>\
+                                            </tbody>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label">Chat Off Message</td>\
+                                                    <td class="field">\
+                                                        <textarea name="offmessage" id="wp-tlkio-off-message" class="wp-tlkio-input wp-tlkio-textarea"></textarea>\
+                                                        <span class="wp-tlkio-form-desc">Specify the message you want to see when the chat is off.</span>\
+                                                    </td>\
+                                                </tr>\
+                                            </tbody>\
+                                            <tbody>\
+                                                <tr class="form-row">\
+                                                    <td class="label"></td>\
+                                                    <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">Insert Shortcode</a></td>\
+                                                </tr>\
+                                            </tbody>\
+                                        </table>\
+                                    </form>\
+                                </div>\
+                                <div class="clear"></div>\
+                            </div>\
+                        </div>');
         
         var table = form.find('table');
         form.appendTo('body').hide();
@@ -129,7 +138,8 @@
                     shortcode += ' ' + index + '="' + value + '"';
             }
             
-            shortcode += ']';
+            var value = jQuery( '#wp-tlkio-off-message' ).val();
+            shortcode += ']' + value + '[/tlkio]';
             
             // inserts the shortcode into the active editor
             tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
