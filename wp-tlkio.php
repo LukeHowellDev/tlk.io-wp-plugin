@@ -96,10 +96,23 @@ class WP_TlkIo {
 			), $atts) );
 		
 		if( current_user_can( 'manage_options' ) ) {
-			$imgsrc = true ? plugins_url( 'img/chat-on.png', __FILE__ ) : plugins_url( 'img/chat-off.png', __FILE__ );
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;"><a href="#"><img style="width:50px;" src="' . $imgsrc . '"></a></div>';
+			$chat_option = 'tlkio_chat_' . $channel;
+
+			if( isset( $_GET[ 'tlkio_chat' ] ) && 'on' == $_GET[ 'tlkio_chat' ] ) {
+				update_option( $chat_option, true );
+			} elseif( isset( $_GET[ 'tlkio_chat' ] ) && 'off' == $_GET[ 'tlkio_chat' ] ) {
+				update_option( $chat_option, false );
+			}
+
+			$is_chat_on = get_option( $chat_option, true );
+
+			$switch_link =  $is_chat_on ? 
+				'<a href="' . add_query_arg( 'tlkio_chat', 'off', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
+				'<a href="' . add_query_arg( 'tlkio_chat', 'on', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
+
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;">' . $switch_link . '</div>';
 		}
-		if( true ) {
+		if( $is_chat_on ) {
 			echo '<div id="tlkio"';
 			echo ' data-channel="' . $channel . '"';
 			echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
