@@ -50,7 +50,7 @@
         var form = jQuery('<div id="wp-tlkio-popup" class="no_preview">\
     <div id="wp-tlkio-shortcode-wrap">\
         <div id="wp-tlkio-sc-form-wrap">\
-            <div id="wp-tlkio-sc-form-head">Insert Alert Shortcode</div>\
+            <div id="wp-tlkio-sc-form-head">Insert tlk.io Shortcode</div>\
             <form method="post" id="wp-tlkio-sc-form">\
                 <div id="_zilla_shortcode" class="hidden">[zilla_alert style="{{style}}"] {{content}} [/zilla_alert]</div>\
                 <div id="_zilla_popup" class="hidden">alert</div>\
@@ -60,7 +60,7 @@
                         <tr class="form-row">\
                             <td class="label">Channel</td>\
                             <td class="field">\
-                                <textarea rows="10" cols="30" name="channel" id="wp-tlkio-channel" class="wp-tlkio-form-textarea wp-tlkio-input">Your Alert!</textarea>\
+                                <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">\
                                 <span class="wp-tlkio-form-desc">Specify the channel name for the chat room. Leave blank for default channel of "Lobby".</span>\
                             </td>\
                         </tr>\
@@ -69,7 +69,7 @@
                         <tr class="form-row">\
                             <td class="label">Width</td>\
                             <td class="field">\
-                                <textarea rows="10" cols="30" name="width" id="wp-tlkio-width" class="wp-tlkio-form-textarea wp-tlkio-input">Your Alert!</textarea>\
+                                <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">\
                                 <span class="wp-tlkio-form-desc">Specify the width of the chat. Leave blank for the default of 400px.</span>\
                             </td>\
                         </tr>\
@@ -78,7 +78,7 @@
                         <tr class="form-row">\
                             <td class="label">Height</td>\
                             <td class="field">\
-                                <textarea rows="10" cols="30" name="height" id="wp-tlkio-height" class="wp-tlkio-form-textarea wp-tlkio-input">Your Alert!</textarea>\
+                                <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">\
                                 <span class="wp-tlkio-form-desc">Specify the height of the chat. Leave blank for the default of 400px.</span>\
                             </td>\
                         </tr>\
@@ -87,7 +87,7 @@
                         <tr class="form-row">\
                             <td class="label">Custom CSS File</td>\
                             <td class="field">\
-                                <textarea rows="10" cols="30" name="css" id="wp-tlkio-css" class="wp-tlkio-form-textarea wp-tlkio-input">Your Alert!</textarea>\
+                                <input name="css" id="wp-tlkio-css" class="wp-tlkio-input">\
                                 <span class="wp-tlkio-form-desc">Specify a custom CSS file to use. Leave blank for no custom CSS.</span>\
                             </td>\
                         </tr>\
@@ -95,7 +95,7 @@
                     <tbody>\
                         <tr class="form-row">\
                             <td class="label"></td>\
-                            <td class="field"><a href="#" class="button-primary wp-tlkio-insert">Insert Shortcode</a></td>\
+                            <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">Insert Shortcode</a></td>\
                         </tr>\
                     </tbody>\
                 </table>\
