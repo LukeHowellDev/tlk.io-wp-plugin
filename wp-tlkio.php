@@ -97,7 +97,7 @@ class WP_TlkIo {
 		
 		echo '<div id="tlkio"';
 		echo ' data-channel="' . $channel . '"';
-		echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';"';
+		echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
 		echo ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
 		echo '></div>';
 		echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
