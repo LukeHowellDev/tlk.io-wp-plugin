@@ -86,7 +86,7 @@ class WP_TlkIo {
 		// add_action( 'admin_menu', array( &$this, 'wp_tlkio_plugin_menu' ) );
 	}
 
-	function render_tlkio_shortcode( $atts ) {
+	function render_tlkio_shortcode( $atts, $content = null ) {
 		// Extract the attributes
 		extract(shortcode_atts( array(
 			'channel'    => 'lobby',
@@ -99,12 +99,21 @@ class WP_TlkIo {
 			$imgsrc = true ? plugins_url( 'img/chat-on.png', __FILE__ ) : plugins_url( 'img/chat-off.png', __FILE__ );
 			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;"><a href="#"><img style="width:50px;" src="' . $imgsrc . '"></a></div>';
 		}
-		echo '<div id="tlkio"';
-		echo ' data-channel="' . $channel . '"';
-		echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
-		echo ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
-		echo '></div>';
-		echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
+		if( true ) {
+			echo '<div id="tlkio"';
+			echo ' data-channel="' . $channel . '"';
+			echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
+			echo ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
+			echo '></div>';
+			echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
+		} else {
+			echo '<div id="chat_is_off">';
+			if( !empty( $content ) )
+				echo $content;
+			else
+				echo 'This chat is currently disabled.';
+			echo '</div>';
+		}
 	}
 
 	function register_tinymce_plugin( $plugin_array ) {
