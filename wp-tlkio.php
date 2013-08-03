@@ -95,6 +95,10 @@ class WP_TlkIo {
 			'stylesheet' => ''
 			), $atts) );
 		
+		if( current_user_can( 'manage_options' ) ) {
+			$imgsrc = true ? plugins_url( 'img/chat-on.png', __FILE__ ) : plugins_url( 'img/chat-off.png', __FILE__ );
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;"><a href="#"><img style="width:50px;" src="' . $imgsrc . '"></a></div>';
+		}
 		echo '<div id="tlkio"';
 		echo ' data-channel="' . $channel . '"';
 		echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
