@@ -10,7 +10,7 @@
          */
         init : function(ed, url) {
             ed.addButton('wp_tlkio', {
-                title : 'Insert tlk.io Shortcode',
+                title : ed.getLang('extrastrings.shortcode_form_title'),
                 cmd : 'wp_tlkio',
                 image : url + '/../img/tinymce-button.png'
             });
@@ -47,64 +47,64 @@
     jQuery(function(){
         // creates a form to be displayed everytime the button is clicked
         // you should achieve this using AJAX instead of direct html code like this
+
         var form = jQuery('<div id="wp-tlkio-popup" class="no_preview">\
                             <div id="wp-tlkio-shortcode-wrap">\
                                 <div id="wp-tlkio-sc-form-wrap">\
-                                    <div id="wp-tlkio-sc-form-head">Insert tlk.io Shortcode</div>\
+                                    <div id="wp-tlkio-sc-form-head">' + ed.getLang('extrastrings.shortcode_form_title') + '</div>\
                                     <form method="post" id="wp-tlkio-sc-form">\
-                                        <div id="_zilla_shortcode" class="hidden">[zilla_alert style="{{style}}"] {{content}} [/zilla_alert]</div>\
-                                        <div id="_zilla_popup" class="hidden">alert</div>\
+                                        <div id="wp-tlkio-shortcode" class="hidden">[wp-tlkio-alert style="{{style}}"] {{content}} [/wp-tlkio-alert]</div>\
+                                        <div id="wp-tlkio-popup" class="hidden">alert</div>\
                                         <table id="wp-tlkio-sc-form-table">\
-                                            <div id="_zilla_ushortcode" class="hidden">[zilla_alert style="white"] Your Alert! [/zilla_alert]</div>\
                                             <tbody>\
                                                 <tr class="form-row">\
-                                                    <td class="label">Channel</td>\
+                                                    <td class="label">' + ed.getLang('extrastrings.shortcode_channel_title') + '</td>\
                                                     <td class="field">\
                                                         <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">\
-                                                        <span class="wp-tlkio-form-desc">Specify the channel name for the chat room. Leave blank for default channel of "Lobby".</span>\
+                                                        <span class="wp-tlkio-form-desc">' + ed.getLang('extrastrings.shortcode_channel_desc') + '</span>\
                                                     </td>\
                                                 </tr>\
                                             </tbody>\
                                             <tbody>\
                                                 <tr class="form-row">\
-                                                    <td class="label">Width</td>\
+                                                    <td class="label">' + ed.getLang('extrastrings.shortcode_width_title') + '</td>\
                                                     <td class="field">\
                                                         <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">\
-                                                        <span class="wp-tlkio-form-desc">Specify the width of the chat. Leave blank for the default of 400px.</span>\
+                                                        <span class="wp-tlkio-form-desc">' + ed.getLang('extrastrings.shortcode_width_desc') + '</span>\
                                                     </td>\
                                                 </tr>\
                                             </tbody>\
                                             <tbody>\
                                                 <tr class="form-row">\
-                                                    <td class="label">Height</td>\
+                                                    <td class="label">' + ed.getLang('extrastrings.shortcode_height_title') + '</td>\
                                                     <td class="field">\
                                                         <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">\
-                                                        <span class="wp-tlkio-form-desc">Specify the height of the chat. Leave blank for the default of 400px.</span>\
+                                                        <span class="wp-tlkio-form-desc">' + ed.getLang('extrastrings.shortcode_height_desc') + '</span>\
                                                     </td>\
                                                 </tr>\
                                             </tbody>\
                                             <tbody>\
                                                 <tr class="form-row">\
-                                                    <td class="label">Custom CSS File</td>\
+                                                    <td class="label">' + ed.getLang('extrastrings.shortcode_css_title') + '</td>\
                                                     <td class="field">\
                                                         <input name="css" id="wp-tlkio-css" class="wp-tlkio-input">\
-                                                        <span class="wp-tlkio-form-desc">Specify a custom CSS file to use. Leave blank for no custom CSS.</span>\
+                                                        <span class="wp-tlkio-form-desc">' + ed.getLang('extrastrings.shortcode_css_desc') + '</span>\
                                                     </td>\
                                                 </tr>\
                                             </tbody>\
                                             <tbody>\
                                                 <tr class="form-row">\
-                                                    <td class="label">Chat Off Message</td>\
+                                                    <td class="label">' + ed.getLang('extrastrings.shortcode_offmessage_title') + '</td>\
                                                     <td class="field">\
                                                         <textarea name="offmessage" id="wp-tlkio-off-message" class="wp-tlkio-input wp-tlkio-textarea"></textarea>\
-                                                        <span class="wp-tlkio-form-desc">Specify the message you want to see when the chat is off.</span>\
+                                                        <span class="wp-tlkio-form-desc">' + ed.getLang('extrastrings.shortcode_offmessage_desc') + '</span>\
                                                     </td>\
                                                 </tr>\
                                             </tbody>\
                                             <tbody>\
                                                 <tr class="form-row">\
                                                     <td class="label"></td>\
-                                                    <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">Insert Shortcode</a></td>\
+                                                    <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">' + ed.getLang('extrastrings.shortcode_form_title') + '</a></td>\
                                                 </tr>\
                                             </tbody>\
                                         </table>\
