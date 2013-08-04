@@ -7,9 +7,9 @@ Version: 0.1
 Author URI: http://truemediaconcepts.com/
 Author: True Media Concepts
 Author Email: support@truemediaconcepts.com
-License:
+License: GPL2
 
-  Copyright 2011 Brad Bodine, Luke Howell (support@truemediaconcepts.com)
+  Copyright 2013 Brad Bodine, Luke Howell (support@truemediaconcepts.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,13 @@ License:
 
 */
 
+/**
+ * Base class for operating the plugin
+ *
+ * @package WordPress
+ * @subpackage WP_TlkIo
+ * @author Luke Howell <luke@truemediaconcepts.com>
+ */
 class WP_TlkIo {
 
 	/*--------------------------------------------*
@@ -38,19 +45,9 @@ class WP_TlkIo {
 	 * Constructor
 	 */
 	function __construct() {
-		//register an activation hook for the plugin
-		// register_activation_hook( __FILE__, array( &$this, 'install_wp_tlkio' ) );
-
-		//Hook up to the init action
+		// Hook to the init action in WordPress
 		add_action( 'init', array( &$this, 'init_wp_tlkio' ) );
 	}
-
-	/**
-	 * Runs when the plugin is activated
-	 */
-	// function install_wp_tlkio() {
-	// 	// do not generate any output here
-	// }
 
 	/**
 	 * Runs when the plugin is initialized
@@ -58,36 +55,26 @@ class WP_TlkIo {
 	function init_wp_tlkio() {
 		// Setup localization
 		load_plugin_textdomain( self::slug, false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+
 		// Load JavaScript and stylesheets
 		$this->register_scripts_and_styles();
 
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$this, 'render_tlkio_shortcode' ) );
 
-		// if ( is_admin() ) {
-			//this will run when in the WordPress admin
-		// } else {
-			//this will run when on the frontend
-		// }
 
+		// Load the tinymce extras if the user can edit things and has rich editing enabled
 		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins', array( &$this, 'register_tinymce_plugin' ) );
 			add_filter( 'mce_buttons', array( &$this, 'register_tinymce_button' ) );
 		}
-
-		/*
-		 * TODO: Define custom functionality for your plugin here
-		 *
-		 * For more information:
-		 * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-		 */
-		// add_action( 'your_action_here', array( &$this, 'action_callback_method_name' ) );
-		// add_filter( 'your_filter_here', array( &$this, 'filter_callback_method_name' ) );
-		// add_action( 'admin_menu', array( &$this, 'wp_tlkio_plugin_menu' ) );
 	}
 
+	/**
+	 * Render the shortcode and output the results
+	 */
 	function render_tlkio_shortcode( $atts, $content = null ) {
-		// Extract the attributes
+		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( array(
 			'channel'    => 'lobby',
 			'width'      => '400px',
@@ -95,13 +82,25 @@ class WP_TlkIo {
 			'stylesheet' => ''
 			), $atts) );
 		
-		if( current_user_can( 'manage_options' ) ) {
-			$chat_option = 'tlkio_chat_' . $channel;
+		// Display the on/off button if the user is an able to edit posts or pages.
+		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
+			// Chat room option name
+			$option_name = 'tlkio_chat_' . $channel;
+			
+			// The current chat room query string to be used
+			$onoff = $option_name . '_switch';
 
-			if( isset( $_GET[ 'tlkio_chat' ] ) && 'on' == $_GET[ 'tlkio_chat' ] ) {
-				update_option( $chat_option, true );
-			} elseif( isset( $_GET[ 'tlkio_chat' ] ) && 'off' == $_GET[ 'tlkio_chat' ] ) {
-				update_option( $chat_option, false );
+			// Get the chat room options
+			$chat_room_options = get_option( $option_name, array(
+				'ison' => false
+			));
+
+			// The chat room is being turned on or off
+			if( isset( $_GET[ $onoff ] ) ) {
+				if( 'on' == $_GET[ $onoff ] )
+					$chat_room_options[ 'ison' ] = true;
+				elseif( 'off' == $_GET[ $onoff ] )
+					$chat_room_options[ 'ison' ] = false;
 			}
 
 			$is_chat_on = get_option( $chat_option, false );
@@ -110,12 +109,22 @@ class WP_TlkIo {
 				'<a href="' . add_query_arg( 'tlkio_chat', 'off', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
 				'<a href="' . add_query_arg( 'tlkio_chat', 'on', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 3b96ee57995626da32c3d653e9b96d4d9ae7067d
 			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">This bar is only visible to the admin. Turn chat on / off &raquo;' . $switch_link . '</div>';
+
+			// Variable to hold is the chat room on or off
+			$is_chat_on = $chat_room_options[ 'ison' ];
+
+			// Link for the switch detmined based on whether the channel is on or off
+			$switch_link =  $is_chat_on ?
+				'<a href="' . add_query_arg( $onoff, 'off', remove_query_arg( $onoff ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-on.png',  __FILE__ ) . '"></a>' : 
+				'<a href="' . add_query_arg( $onoff, 'on',  remove_query_arg( $onoff ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;">' . $switch_link . '</div>';
+
+			update_option( $option_name, $chat_room_options );
+
 		}
+
+		// If the chat room is on diplay is, otherwise display the custom message
 		if( $is_chat_on ) {
 			echo '<div id="tlkio"';
 			echo ' data-channel="' . $channel . '"';
@@ -128,21 +137,24 @@ class WP_TlkIo {
 			if( !empty( $content ) )
 				echo $content;
 			else
-				echo 'This chat is currently disabled.';
+				_e( 'This chat is currently disabled.', self::slug );
 			echo '</div>';
 		}
 	}
 
+	/**
+	 * Registers the tinymce plugin for the shortcode form
+	 */
 	function register_tinymce_plugin( $plugin_array ) {
-		// $a = plugin_url(__FILE__).'wp-tlkio.js';
-		// echo $a;
-		// die();
-		$plugin_array[ 'wp_tlkio' ] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
+		$plugin_array[ self::slug ] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
 		return $plugin_array;
 	}
 
+	/**
+	 * Adds the tinymce button for the shortcode form
+	 */
 	function register_tinymce_button( $buttons ) {
-		array_push( $buttons, 'wp_tlkio' );
+		array_push( $buttons, self::slug );
 		return $buttons;
 	}
 
@@ -151,19 +163,14 @@ class WP_TlkIo {
 	 * public facing site.
 	 */
 	private function register_scripts_and_styles() {
-		if ( is_admin() ) {
-			// $this->load_file( self::slug . '-admin-script', '/js/admin.js', true );
+		if ( is_admin() )
 			$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
-		} //else {
-			// $this->load_file( self::slug . '-script', '/js/widget.js', true );
-			// $this->load_file( self::slug . '-style', '/css/widget.css' );
-		//} // end if/else
-	} // end register_scripts_and_styles
+	}
 
 	/**
 	 * Helper function for registering and enqueueing scripts and styles.
 	 *
-	 * @name	The 	ID to register with WordPress
+	 * @name				The ID to register with WordPress
 	 * @file_path		The path to the actual file
 	 * @is_script		Optional argument for if the incoming file_path is a JavaScript source file.
 	 */
@@ -174,15 +181,13 @@ class WP_TlkIo {
 
 		if( file_exists( $file ) ) {
 			if( $is_script ) {
-				wp_register_script( $name, $url, array('jquery') ); //depends on jquery
+				wp_register_script( $name, $url, array('jquery') );
 				wp_enqueue_script( $name );
 			} else {
 				wp_register_style( $name, $url );
 				wp_enqueue_style( $name );
-			} // end if
-		} // end if
-
-	} // end load_file
-
-} // end class
+			}
+		}
+	}
+}
 new WP_TlkIo;
