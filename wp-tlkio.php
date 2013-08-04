@@ -66,6 +66,7 @@ class WP_TlkIo {
 		// Load the tinymce extras if the user can edit things and has rich editing enabled
 		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins', array( &$this, 'register_tinymce_plugin' ) );
+			add_filter( 'mce_external_languages', array( &$this, 'localize_tinymce_plugin' ) );
 			add_filter( 'mce_buttons', array( &$this, 'register_tinymce_button' ) );
 		}
 	}
@@ -150,6 +151,14 @@ class WP_TlkIo {
 	}
 
 	/**
+	 * Registers the tinymce plugin for the shortcode form
+	 */
+	function localize_tinymce_plugin( $lang_array ) {
+		$lang[ self::slug ] = plugin_dir_path( __FILE__ ) . 'inc/tinymce-lang.php';
+		return $lang_array;
+	}
+
+	/**
 	 * Adds the tinymce button for the shortcode form
 	 */
 	function register_tinymce_button( $buttons ) {
@@ -164,7 +173,7 @@ class WP_TlkIo {
 	private function register_scripts_and_styles() {
 		if ( is_admin() )
 		{
-			wp_register_style( self::slug . '-admin-style', '/css/admin.css' );
+			wp_register_style( self::slug . '-admin-style', plugins_url( '/css/admin.css', __FILE__ ) );
 			wp_enqueue_style( self::slug . '-admin-style' );
 		}
 	}
