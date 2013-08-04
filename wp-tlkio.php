@@ -66,6 +66,7 @@ class WP_TlkIo {
 		// Load the tinymce extras if the user can edit things and has rich editing enabled
 		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins', array( &$this, 'register_tinymce_plugin' ) );
+			add_filter( 'mce_external_languages', array( &$this, 'localize_tinymce_button' ) );
 			add_filter( 'mce_buttons', array( &$this, 'register_tinymce_button' ) );
 		}
 	}
@@ -140,6 +141,14 @@ class WP_TlkIo {
 	function register_tinymce_plugin( $plugin_array ) {
 		$plugin_array[ self::slug ] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
 		return $plugin_array;
+	}
+
+	/**
+	 * Registers the tinymce plugin for the shortcode form
+	 */
+	function localize_tinymce_plugin( $lang_array ) {
+		$lang[ self::slug ] = plugins_url_dir( 'inc/tinymce-lang.php', __FILE__ );
+		return $lang_array;
 	}
 
 	/**
