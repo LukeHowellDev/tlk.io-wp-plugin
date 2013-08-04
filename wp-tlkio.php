@@ -66,7 +66,7 @@ class WP_TlkIo {
 		// Load the tinymce extras if the user can edit things and has rich editing enabled
 		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins', array( &$this, 'register_tinymce_plugin' ) );
-			add_filter( 'mce_external_languages', array( &$this, 'localize_tinymce_button' ) );
+			add_filter( 'mce_external_languages', array( &$this, 'localize_tinymce_plugin' ) );
 			add_filter( 'mce_buttons', array( &$this, 'register_tinymce_button' ) );
 		}
 	}
@@ -147,7 +147,7 @@ class WP_TlkIo {
 	 * Registers the tinymce plugin for the shortcode form
 	 */
 	function localize_tinymce_plugin( $lang_array ) {
-		$lang[ self::slug ] = plugins_url_dir( 'inc/tinymce-lang.php', __FILE__ );
+		$lang[ self::slug ] = plugin_dir_path( __FILE__ ) . 'inc/tinymce-lang.php';
 		return $lang_array;
 	}
 
@@ -165,29 +165,9 @@ class WP_TlkIo {
 	 */
 	private function register_scripts_and_styles() {
 		if ( is_admin() )
-			$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
-	}
-
-	/**
-	 * Helper function for registering and enqueueing scripts and styles.
-	 *
-	 * @name				The ID to register with WordPress
-	 * @file_path		The path to the actual file
-	 * @is_script		Optional argument for if the incoming file_path is a JavaScript source file.
-	 */
-	private function load_file( $name, $file_path, $is_script = false ) {
-
-		$url = plugins_url($file_path, __FILE__);
-		$file = plugin_dir_path(__FILE__) . $file_path;
-
-		if( file_exists( $file ) ) {
-			if( $is_script ) {
-				wp_register_script( $name, $url, array('jquery') );
-				wp_enqueue_script( $name );
-			} else {
-				wp_register_style( $name, $url );
-				wp_enqueue_style( $name );
-			}
+		{
+			wp_register_style( self::slug . '-admin-style', plugins_url( '/css/admin.css', __FILE__ ) );
+			wp_enqueue_style( self::slug . '-admin-style' );
 		}
 	}
 }
