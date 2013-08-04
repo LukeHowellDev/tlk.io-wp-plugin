@@ -62,6 +62,8 @@ class WP_TlkIo {
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$this, 'render_tlkio_shortcode' ) );
 
+		// Add code to the admin footer
+		add_action( 'in_admin_footer', array( &$this, 'add_shortcode_form' ) );
 
 		// Load the tinymce extras if the user can edit things and has rich editing enabled
 		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
@@ -170,12 +172,83 @@ class WP_TlkIo {
 	 * Registers and enqueues stylesheets for the administration panel and the
 	 * public facing site.
 	 */
-	private function register_scripts_and_styles() {
+	function register_scripts_and_styles() {
 		if ( is_admin() )
 		{
 			wp_register_style( self::slug . '-admin-style', plugins_url( '/css/admin.css', __FILE__ ) );
 			wp_enqueue_style( self::slug . '-admin-style' );
 		}
+	}
+
+	/**
+	 * Adds the code for the shortcode form to the footer
+	 */
+	function add_shortcode_form() {
+		echo '
+		<div id="wp-tlkio-popup" class="no_preview" style="display:none;">
+		    <div id="wp-tlkio-shortcode-wrap">
+		        <div id="wp-tlkio-sc-form-wrap">
+		            <div id="wp-tlkio-sc-form-head">' . sprintf( __( 'Insert %1$s Shortcode', 'wp-tlkio' ), 'tlk.io' ) . '</div>
+		            <form method="post" id="wp-tlkio-sc-form">
+		                <table id="wp-tlkio-sc-form-table">
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label">' . sprintf( __( 'Channel', 'wp-tlkio' ) ) . '</td>
+		                            <td class="field">
+		                                <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">
+		                                <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the channel name for the chat room. Leave blank for default channel of %1$s.', 'wp-tlkio' ), '"Lobby"' ) . '</span>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label">' . sprintf( __( 'Width', 'wp-tlkio' ) ) . '</td>
+		                            <td class="field">
+		                                <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">
+		                                <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the width of the chat. Leave blank for the default of %1$s.', 'wp-tlkio' ), '400px' ) . '</span>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label">' . sprintf( __( 'Height', 'wp-tlkio' ) ) . '</td>
+		                            <td class="field">
+		                                <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">
+		                                <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the height of the chat. Leave blank for the default of %1$s.', 'wp-tlkio' ), '400px' ) . '</span>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label">' . sprintf( __( 'Custom CSS File', 'wp-tlkio' ) ) . '</td>
+		                            <td class="field">
+		                                <input name="css" id="wp-tlkio-css" class="wp-tlkio-input">
+		                                <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify a custom CSS file to use. Leave blank for no custom CSS.', 'wp-tlkio' ) ) . '</span>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label">' . sprintf( __( 'Chat Is Off Message', 'wp-tlkio' ) ) . '</td>
+		                            <td class="field">
+		                                <textarea name="offmessage" id="wp-tlkio-off-message" class="wp-tlkio-input wp-tlkio-textarea"></textarea>
+		                                <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the message you want to see when the chat is off.', 'wp-tlkio' ) ) . '</span>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                    <tbody>
+		                        <tr class="form-row">
+		                            <td class="label"></td>
+		                            <td class="field"><a id="wp-tlkio-submit" href="#" class="button-primary wp-tlkio-insert">' . sprintf( __( 'Insert %1$s Shortcode', 'wp-tlkio' ), 'tlk.io' ) . '</a></td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+		            </form>
+		        </div>
+		        <div class="clear"></div>
+		    </div>
+		</div>
+		';
 	}
 }
 new WP_TlkIo;
