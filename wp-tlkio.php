@@ -38,8 +38,8 @@ class WP_TlkIo {
 	/*--------------------------------------------*
 	 * Constants
 	 *--------------------------------------------*/
-	const name = 'wp_tlkio';
-	const slug = 'wp_tlkio';
+	const slug        = 'wp_tlkio';
+	const option_base = 'wp_tlkio';
 
 	/**
 	 * Constructor
@@ -81,43 +81,50 @@ class WP_TlkIo {
 			'height'     => '400px',
 			'stylesheet' => ''
 			), $atts) );
+
+			// Chat room option name
+			$channel_option_name = self::option_base . '_' . $channel;
+
+			// Get the channel specific options array
+			$channel_options = get_option( $channel_option_name, array(
+				'ison' => false
+			));
 		
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
-			// Chat room option name
-			$option_name = 'tlkio_chat_' . $channel;
 			
 			// The current chat room query string to be used
-			$onoff = $option_name . '_switch';
-
-			// Get the chat room options
-			$chat_room_options = get_option( $option_name, array(
-				'ison' => false
-			));
+			$onoff_query = $channel_option_name . '_switch';
 
 			// The chat room is being turned on or off
-			if( isset( $_GET[ $onoff ] ) ) {
-				if( 'on' == $_GET[ $onoff ] )
-					$chat_room_options[ 'ison' ] = true;
-				elseif( 'off' == $_GET[ $onoff ] )
-					$chat_room_options[ 'ison' ] = false;
+			if( isset( $_GET[ $onoff_query ] ) ) {
+				if( 'on' == $_GET[ $onoff_query ] )
+					$channel_options[ 'ison' ] = true;
+				elseif( 'off' == $_GET[ $onoff_query ] )
+					$channel_options[ 'ison' ] = false;
 			}
-			
-			// Variable to hold is the chat room on or off
-			$is_chat_on = $chat_room_options[ 'ison' ];
 
 			// Link for the switch detmined based on whether the channel is on or off
-			$switch_link =  $is_chat_on ?
-				'<a href="' . add_query_arg( $onoff, 'off', remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
-				'<a href="' . add_query_arg( $onoff, 'on',  remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">' . __( 'This bar is only visible to the admin. Turn chat on / off &raquo;', self::slug ) . $switch_link . '</div>';
+			$switch_link  = $channel_options[ 'ison' ] ?
+			                add_query_arg( $onoff_query, 'off', remove_query_arg( $onoff_query ) ) :
+			                add_query_arg( $onoff_query, 'on',  remove_query_arg( $onoff_query ) );
 
-			update_option( $option_name, $chat_room_options );
+     	// Image to use for the switch
+			$switch_image = $channel_options[ 'ison' ] ?
+			                plugins_url( 'img/chat-on.png',  __FILE__ ) :
+			                plugins_url( 'img/chat-off.png', __FILE__ );
+
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
+			echo __( 'This bar is only visible to the admin. Turn chat on / off', self::slug ) . ' &raquo;';
+			echo '<a href="' . $switch_link . '"><img src="' . $switch_image . '" alt="tlkio-switch" style="width:20px;"></a>';
+			echo '</div>';
+
+			update_option( $channel_option_name, $channel_options );
 
 		}
 
 		// If the chat room is on diplay is, otherwise display the custom message
-		if( $is_chat_on ) {
+		if( $channel_options[ 'ison' ] ) {
 			echo '<div id="tlkio"';
 			echo ' data-channel="' . $channel . '"';
 			echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
@@ -156,29 +163,9 @@ class WP_TlkIo {
 	 */
 	private function register_scripts_and_styles() {
 		if ( is_admin() )
-			$this->load_file( self::slug . '-admin-style', '/css/admin.css' );
-	}
-
-	/**
-	 * Helper function for registering and enqueueing scripts and styles.
-	 *
-	 * @name				The ID to register with WordPress
-	 * @file_path		The path to the actual file
-	 * @is_script		Optional argument for if the incoming file_path is a JavaScript source file.
-	 */
-	private function load_file( $name, $file_path, $is_script = false ) {
-
-		$url = plugins_url($file_path, __FILE__);
-		$file = plugin_dir_path(__FILE__) . $file_path;
-
-		if( file_exists( $file ) ) {
-			if( $is_script ) {
-				wp_register_script( $name, $url, array('jquery') );
-				wp_enqueue_script( $name );
-			} else {
-				wp_register_style( $name, $url );
-				wp_enqueue_style( $name );
-			}
+		{
+			wp_register_style( self::slug . '-admin-style', '/css/admin.css' );
+			wp_enqueue_style( self::slug . '-admin-style' );
 		}
 	}
 }
