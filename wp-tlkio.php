@@ -110,7 +110,7 @@ class WP_TlkIo {
 			$switch_link =  $is_chat_on ?
 				'<a href="' . add_query_arg( $onoff, 'off', remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
 				'<a href="' . add_query_arg( $onoff, 'on',  remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">This bar is only visible to the admin. Turn chat on / off &raquo;' . $switch_link . '</div>';
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">' . __( 'This bar is only visible to the admin. Turn chat on / off &raquo;', self::slug ) . $switch_link . '</div>';
 
 			update_option( $option_name, $chat_room_options );
 
