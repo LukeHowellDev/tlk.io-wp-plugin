@@ -102,23 +102,15 @@ class WP_TlkIo {
 				elseif( 'off' == $_GET[ $onoff ] )
 					$chat_room_options[ 'ison' ] = false;
 			}
-
-			$is_chat_on = get_option( $chat_option, false );
-
-			$switch_link =  $is_chat_on ? 
-				'<a href="' . add_query_arg( 'tlkio_chat', 'off', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
-				'<a href="' . add_query_arg( 'tlkio_chat', 'on', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
-
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">This bar is only visible to the admin. Turn chat on / off &raquo;' . $switch_link . '</div>';
-
+			
 			// Variable to hold is the chat room on or off
 			$is_chat_on = $chat_room_options[ 'ison' ];
 
 			// Link for the switch detmined based on whether the channel is on or off
 			$switch_link =  $is_chat_on ?
-				'<a href="' . add_query_arg( $onoff, 'off', remove_query_arg( $onoff ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-on.png',  __FILE__ ) . '"></a>' : 
-				'<a href="' . add_query_arg( $onoff, 'on',  remove_query_arg( $onoff ) ) . '"><img style="width:50px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;">' . $switch_link . '</div>';
+				'<a href="' . add_query_arg( $onoff, 'off', remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
+				'<a href="' . add_query_arg( $onoff, 'on',  remove_query_arg( $onoff ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
+			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">This bar is only visible to the admin. Turn chat on / off &raquo;' . $switch_link . '</div>';
 
 			update_option( $option_name, $chat_room_options );
 
