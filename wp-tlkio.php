@@ -110,7 +110,10 @@ class WP_TlkIo {
 				'<a href="' . add_query_arg( 'tlkio_chat', 'off', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-on.png', __FILE__ ) . '"></a>' : 
 				'<a href="' . add_query_arg( 'tlkio_chat', 'on', remove_query_arg( 'tlkio_chat' ) ) . '"><img style="width:30px;padding-left:10px;" src="' . plugins_url( 'img/chat-off.png', __FILE__ ) . '"></a>';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3b96ee57995626da32c3d653e9b96d4d9ae7067d
 			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius: 5px;padding: 2px 7px 2px 2px;font-family: sans-serif;color: #fff;font-size: 0.8em;">This bar is only visible to the admin. Turn chat on / off &raquo;' . $switch_link . '</div>';
 		}
 		if( $is_chat_on ) {
