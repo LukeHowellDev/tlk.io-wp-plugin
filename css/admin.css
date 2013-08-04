@@ -1,22 +1,9 @@
 
 /* GLOBAL
 ------------------------------------------------------- */
-#wp-tlkio-popup {
-	width: 560px;
-	font: 12px/20px Arial, Helvetica, sans-serif;
-	overflow: hidden;
-}
-#wp-tlkio-popup * {
-	font: 12px/20px Arial, Helvetica, sans-serif;	
-}
 
-/* form side */
-#wp-tlkio-sc-form-wrap {
-	width: 550px;
-	float: left;
-}
 #wp-tlkio-sc-form-wrap #wp-tlkio-sc-form-head {
-	width: 520px;
+	width: 100%;
 	padding: 15px;
 	color: #fff;
 	font-weight: bold;
@@ -31,11 +18,8 @@
 	background-image: linear-gradient(top, #404040, #393939);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#404040', EndColorStr='#393939');
 }
-#wp-tlkio-popup.no_preview #wp-tlkio-sc-form-wrap #wp-tlkio-sc-form-head {
-	width: 530px;
-}
+
 #wp-tlkio-sc-form-wrap #wp-tlkio-sc-form {
-	width: 490px;
 	padding: 15px;
 }
 
@@ -45,7 +29,7 @@
 ------------------------------------------------------- */
 
 #wp-tlkio-sc-form-table {
-	width: 530px;
+	width: 640px;
 }
 #wp-tlkio-sc-form-table tbody tr.form-row {
 	display: block;
@@ -178,6 +162,10 @@
 }
 
 /* Hide outline on focus */
-#content_zilla_button { outline: none; }
+#content_wp-tlkio_button { outline: none; }
 
-
+#wp-tlkio-shortcode-wrap{
+	position: relative;
+	top: -2px;
+	left: -15px;
+}
