@@ -16,7 +16,7 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 
 == Installation ==
 
-1. Upload `tlkio_wp` folder to the `/wp-content/plugins/` directory
+1. Upload `wp-tlkio` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin 'WP tlk.io' through the 'Plugins' menu in WordPress
 1. Place `[tlkio]` in your pages or posts
 
@@ -31,7 +31,7 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 * channel - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
 * width - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
 * height - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* css - link to an external stylesheet to easily add custom style to the embeded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* css - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
 * Offline Message - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
 
 == Screenshots ==
@@ -41,7 +41,7 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 == Changelog ==
 
 = 0.2 =
-* Update to the readme with better instructions for use.
+* Update to the readme.txt with better instructions for use.
 
 = 0.1 =
 * Initial version
