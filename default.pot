@@ -1,0 +1,89 @@
+# Copyright (C) 2013 WP tlk.io
+# This file is distributed under the same license as the WP tlk.io package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP tlk.io 0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-tlkio\n"
+"POT-Creation-Date: 2013-08-04 21:20:41+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: wp-tlkio.php:121
+msgid "This bar is only visible to the admin. Turn chat on / off"
+msgstr ""
+
+#: wp-tlkio.php:142
+msgid "This chat is currently disabled."
+msgstr ""
+
+#: wp-tlkio.php:191 wp-tlkio.php:242
+msgid "Insert %1$s Shortcode"
+msgstr ""
+
+#: wp-tlkio.php:196
+msgid "Channel"
+msgstr ""
+
+#: wp-tlkio.php:199
+msgid ""
+"Specify the channel name for the chat room. Leave blank for default channel "
+"of %1$s."
+msgstr ""
+
+#: wp-tlkio.php:205
+msgid "Width"
+msgstr ""
+
+#: wp-tlkio.php:208
+msgid "Specify the width of the chat. Leave blank for the default of %1$s."
+msgstr ""
+
+#: wp-tlkio.php:214
+msgid "Height"
+msgstr ""
+
+#: wp-tlkio.php:217
+msgid "Specify the height of the chat. Leave blank for the default of %1$s."
+msgstr ""
+
+#: wp-tlkio.php:223
+msgid "Custom CSS File"
+msgstr ""
+
+#: wp-tlkio.php:226
+msgid "Specify a custom CSS file to use. Leave blank for no custom CSS."
+msgstr ""
+
+#: wp-tlkio.php:232
+msgid "Chat Is Off Message"
+msgstr ""
+
+#: wp-tlkio.php:235
+msgid "Specify the message you want to see when the chat is off."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP tlk.io"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://truemediaconcepts.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A plugin to integrate <a href=\"http://tlk.io\">tlk.io chat</a> on any page "
+"of your website."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "True Media Concepts"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://truemediaconcepts.com/"
+msgstr ""
