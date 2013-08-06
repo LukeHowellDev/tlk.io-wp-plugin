@@ -100,26 +100,25 @@ class WP_TlkIo {
 			$onoff_query = $channel_option_name . '_switch';
 
 			// The chat room is being turned on or off
-			if( isset( $_GET[ $onoff_query ] ) ) {
-				if( 'on' == $_GET[ $onoff_query ] )
+			if( isset( $_POST[ $onoff_query ] ) ) {
+				if( 'on' == $_POST[ $onoff_query ] )
 					$channel_options[ 'ison' ] = true;
-				elseif( 'off' == $_GET[ $onoff_query ] )
+				elseif( 'off' == $_POST[ $onoff_query ] )
 					$channel_options[ 'ison' ] = false;
 			}
 
-			// Link for the switch detmined based on whether the channel is on or off
-			$switch_link  = $channel_options[ 'ison' ] ?
-			                add_query_arg( $onoff_query, 'off', remove_query_arg( $onoff_query ) ) :
-			                add_query_arg( $onoff_query, 'on',  remove_query_arg( $onoff_query ) );
-
      	// Image to use for the switch
-			$switch_image = $channel_options[ 'ison' ] ?
-			                plugins_url( 'img/chat-on.png',  __FILE__ ) :
-			                plugins_url( 'img/chat-off.png', __FILE__ );
+			$switch_image   = $channel_options[ 'ison' ] ?
+			                  plugins_url( 'img/chat-on.png',  __FILE__ ) :
+			                  plugins_url( 'img/chat-off.png', __FILE__ );
+
+			// Determine the switch state to turn to
+			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
 			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
 			echo __( 'This bar is only visible to the admin. Turn chat on / off', self::slug ) . ' &raquo;';
-			echo '<a href="' . $switch_link . '"><img src="' . $switch_image . '" alt="tlkio-switch" style="width:20px;"></a>';
+			//echo '<a href="' . $switch_link . '"><img src="' . $switch_image . '" alt="tlkio-switch" style="width:20px;"></a>';
+			echo '<form method="post" style="float:right;"><input type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
 			echo '</div>';
 
 			update_option( $channel_option_name, $channel_options );
