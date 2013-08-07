@@ -85,13 +85,15 @@ class WP_TlkIo {
 			'stylesheet' => ''
 			), $atts) );
 
-			// Chat room option name
-			$channel_option_name = self::option_base . '_' . $channel;
+		$output = '';
 
-			// Get the channel specific options array
-			$channel_options = get_option( $channel_option_name, array(
-				'ison' => false
-			));
+		// Chat room option name
+		$channel_option_name = self::option_base . '_' . $channel;
+
+		// Get the channel specific options array
+		$channel_options = get_option( $channel_option_name, array(
+			'ison' => false
+		));
 		
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
@@ -115,11 +117,10 @@ class WP_TlkIo {
 			// Determine the switch state to turn to
 			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
-			echo '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
-			echo __( 'This bar is only visible to the admin. Turn chat on / off', self::slug ) . ' &raquo;';
-			//echo '<a href="' . $switch_link . '"><img src="' . $switch_image . '" alt="tlkio-switch" style="width:20px;"></a>';
-			echo '<form method="post" style="float:right;"><input type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
-			echo '</div>';
+			$output .= '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
+			$output .= __( 'This bar is only visible to the admin. Turn chat on / off', self::slug ) . ' &raquo;';
+			$output .= '<form method="post" style="float:right;"><input type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
+			$output .= '</div>';
 
 			update_option( $channel_option_name, $channel_options );
 
@@ -127,20 +128,21 @@ class WP_TlkIo {
 
 		// If the chat room is on diplay is, otherwise display the custom message
 		if( $channel_options[ 'ison' ] ) {
-			echo '<div id="tlkio"';
-			echo ' data-channel="' . $channel . '"';
-			echo ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
-			echo ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
-			echo '></div>';
-			echo '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
+			$output .= '<div id="tlkio"';
+			$output .= ' data-channel="' . $channel . '"';
+			$output .= ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
+			$output .= ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
+			$output .= '></div>';
+			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 		} else {
-			echo '<div id="chat_is_off">';
+			$output .= '<div id="chat_is_off">';
 			if( !empty( $content ) )
-				echo $content;
+				$output .= $content;
 			else
 				_e( 'This chat is currently disabled.', self::slug );
-			echo '</div>';
+			$output .= '</div>';
 		}
+		return $output;
 	}
 
 	/**
