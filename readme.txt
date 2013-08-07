@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,10 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 
 == Changelog ==
 
+= 0.3 =
+* Fixed shortcode error that was echoing output instead of returning.
+* Changed the on/off switch from link to a form(POST method).
+
 = 0.2 =
 * Update to the readme.txt with better instructions for use.
 
@@ -47,6 +51,9 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 * Initial version
 
 == Upgrade notice ==
+
+= 0.3 =
+* Fixes possible error in the output of shortcodes.
 
 = 0.2 =
 * Minor update. No functionality changes. Only instructional changes.
