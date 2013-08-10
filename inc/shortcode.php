@@ -64,9 +64,9 @@ class WP_TlkIo_Shortcode {
       // Determine the switch state to turn to
 			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
-			$output .= '<div style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
+			$output .= '<div class="tlkio-admin">';
 			$output .= __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG ) . ' &raquo;';
-			$output .= '<form method="post" style="float:right;"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
+			$output .= '<form method="post"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '"></form>';
 			$output .= '</div>';
 
 			update_option( $channel_option_name, $channel_options );

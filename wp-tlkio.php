@@ -75,13 +75,17 @@ class WP_TlkIo {
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$shortcode, 'render_tlkio_shortcode' ) );
 
+		// Add AJAX hook to update the chat
+		add_action( 'wp_ajax_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
+
 		// Add AJAX hook to check for updated state
 		add_action( 'wp_ajax_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
 		add_action( 'wp_ajax_nopriv_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
 
 		// Add AJAX hook to update the chat
-		add_action( 'wp_ajax_wp_tlkio_update_channel', array( &$ajax, 'update_channel' ) );
-		add_action( 'wp_ajax_nopriv_wp_tlkio_update_channel', array( &$ajax, 'update_channel' ) );
+		add_action( 'wp_ajax_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
 
 		// Add code to the admin footer
 		add_action( 'in_admin_footer', array( &$shortcode, 'add_shortcode_form' ) );
@@ -100,15 +104,19 @@ class WP_TlkIo {
 	function register_scripts_and_styles() {
 		if ( is_admin() )
 		{
-			wp_register_style( WP_TLKIO_SLUG . '-admin-style', WP_TLKIO_URL . 'css/admin.css' );
+			wp_register_style( WP_TLKIO_SLUG . '-admin-style', WP_TLKIO_URL . 'css/admin-style.css' );
 			wp_enqueue_style( WP_TLKIO_SLUG . '-admin-style' );
 		}
 		else {
-			wp_register_script( WP_TLKIO_SLUG . '-main', WP_TLKIO_URL . 'js/main.js', array( 'jquery' ) );
-			wp_enqueue_script( WP_TLKIO_SLUG . '-main' );
-			wp_localize_script( WP_TLKIO_SLUG . '-main', 'WP_TlkIo', array(
+			wp_register_style( WP_TLKIO_SLUG . '-style', WP_TLKIO_URL . 'css/style.css' );
+			wp_enqueue_style( WP_TLKIO_SLUG . '-style' );
+
+			wp_register_script( WP_TLKIO_SLUG . '-script', WP_TLKIO_URL . 'js/script.js', array( 'jquery' ) );
+			wp_enqueue_script( WP_TLKIO_SLUG . '-script' );
+			wp_localize_script( WP_TLKIO_SLUG . '-script', 'WP_TlkIo', array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'channel_off_message' => __( 'The chat has been turned off.', WP_TLKIO_SLUG )
+				'channel_off_message' => __( 'The chat has been closed.', WP_TLKIO_SLUG ),
+				'channel_on_message' => __( 'The chat is open. Enjoy.', WP_TLKIO_SLUG )
 			));
 		}
 	}

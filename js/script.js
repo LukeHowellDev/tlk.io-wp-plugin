@@ -23,6 +23,25 @@ function tlkio_refresh() {
 }
 
 jQuery(function($) {
+	$( '.tlkio-switch' ).live( 'click', function() {
+		channel = $( this ).attr( 'id' );
+		$.post(
+			WP_TlkIo.ajaxurl,
+			{
+				'action': 'wp_tlkio_update_channel_state',
+				'channel': channel
+			},
+			function( response ) {
+				result = $.parseJSON( response );
+				$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
+				if( 'on' == result.state ) {
+					tlkio_refresh();
+				}
+			}
+		);
+		return false;
+	});
+
 	setInterval(function() {
 		$( '.tlkio-channel' ).each(function() {
 			var channel = $( this ).attr( 'id' ).split( 'wp-tlkio-channel-' )[1];
@@ -38,16 +57,25 @@ jQuery(function($) {
 						$.post(
 							WP_TlkIo.ajaxurl,
 							{
-								'action': 'wp_tlkio_update_channel',
+								'action': 'wp_tlkio_refresh_channel',
 								'channel': result.channel
 							},
 							function( response ) {
 								result = $.parseJSON( response );
 								$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
-								if( 'off' == result.state )
-									alert( WP_TlkIo.channel_off_message );
-								else
+								if( 'off' == result.state ) {
+									$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + WP_TlkIo.channel_off_message + '</div>' );
+									setTimeout(function() {
+										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
+									}, 5000);
+								}
+								else {
+									$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + WP_TlkIo.channel_on_message + '</div>' );
+									setTimeout(function() {
+										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
+									}, 5000);
 									tlkio_refresh();
+								}
 							}
 						);
 					}
