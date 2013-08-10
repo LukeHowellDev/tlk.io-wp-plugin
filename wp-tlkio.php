@@ -34,6 +34,7 @@ define( 'WP_TLKIO_DEFAULT_WIDTH', '400px' );
 define( 'WP_TLKIO_DEFAULT_HEIGHT', '400px' );
 define( 'WP_TLKIO_DEFAULT_STYLESHEET', '' );
 define( 'WP_TLKIO_DEFAULT_CHANNEL_STATE', false );
+define( 'WP_TLKIO_DEFAULT_OFF_CONTENT', __( 'This chat is currently disabled.', WP_TLKIO_SLUG ) );
 
 /**
  * Base class for operating the plugin
@@ -74,6 +75,14 @@ class WP_TlkIo {
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$shortcode, 'render_tlkio_shortcode' ) );
 
+		// Add AJAX hook to check for updated state
+		add_action( 'wp_ajax_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
+
+		// Add AJAX hook to update the chat
+		add_action( 'wp_ajax_wp_tlkio_update_channel', array( &$ajax, 'update_channel' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_update_channel', array( &$ajax, 'update_channel' ) );
+
 		// Add code to the admin footer
 		add_action( 'in_admin_footer', array( &$shortcode, 'add_shortcode_form' ) );
 
@@ -97,6 +106,10 @@ class WP_TlkIo {
 		else {
 			wp_register_script( WP_TLKIO_SLUG . '-main', WP_TLKIO_URL . 'js/main.js', array( 'jquery' ) );
 			wp_enqueue_script( WP_TLKIO_SLUG . '-main' );
+			wp_localize_script( WP_TLKIO_SLUG . '-main', 'WP_TlkIo', array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'channel_off_message' => __( 'The chat has been turned off.', WP_TLKIO_SLUG )
+			));
 		}
 	}
 }
