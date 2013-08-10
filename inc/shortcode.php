@@ -12,12 +12,14 @@ class WP_TlkIo_Shortcode {
 	function render_tlkio_shortcode( $atts, $content = null ) {
 		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( array(
-			'channel'    => 'lobby',
-			'width'      => '400px',
-			'height'     => '400px',
-			'stylesheet' => ''
+			'channel'    => WP_TLKIO_DEFAULT_CHANNEL,
+			'width'      => WP_TLKIO_DEFAULT_WIDTH,
+			'height'     => WP_TLKIO_DEFAULT_HEIGHT,
+			'stylesheet' => WP_TLKIO_DEFAULT_STYLESHEET
 			), $atts) );
 
+		$off_content = !empty( $content ) ? $content : WP_TLKIO_DEFAULT_OFF_CONTENT;
+		
 		$output = '';
 
 		// Chat room option name
@@ -25,20 +27,19 @@ class WP_TlkIo_Shortcode {
 
 		// Get the channel specific options array
 		$channel_options = get_option( $channel_option_name, array(
-			'ison' => false
+			'ison' => WP_TLKIO_DEFAULT_CHANNEL_STATE
 		));
 
-		$channel_options[ 'channel' ]    = $channel;
-		$channel_options[ 'width' ]      = $width;
-		$channel_options[ 'height' ]     = $height;
-		$channel_options[ 'stylesheet' ] = $stylesheet;
-		
-		// Display the on/off button if the user is an able to edit posts or pages.
-		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
-			
-			// The current chat room query string to be used
-			$onoff_query = $channel_option_name . '_switch';
+		$channel_options[ 'channel' ]     = $channel;
+		$channel_options[ 'width' ]       = $width;
+		$channel_options[ 'height' ]      = $height;
+		$channel_options[ 'stylesheet' ]  = $stylesheet;
+		$channel_options[ 'off_content' ] = $off_content;
 
+		// The current chat room query string to be used
+		$onoff_query = $channel_option_name . '_switch';
+
+		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
 			// The chat room is being turned on or off
 			if( isset( $_POST[ $onoff_query ] ) ) {
 				if( 'on' == $_POST[ $onoff_query ] )
@@ -46,18 +47,26 @@ class WP_TlkIo_Shortcode {
 				elseif( 'off' == $_POST[ $onoff_query ] )
 					$channel_options[ 'ison' ] = false;
 			}
+		}
 
-     	// Image to use for the switch
+		$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
+
+		$output .= '<div class="tlkio-channel ' . $channel_status . '" id="wp-tlkio-channel-' . $channel . '">';
+
+		// Display the on/off button if the user is an able to edit posts or pages.
+		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
+
+			// Image to use for the switch
 			$switch_image   = $channel_options[ 'ison' ] ?
-			                  WP_TLKIO_URL . 'img/chat-on.png' :
-			                  WP_TLKIO_URL . 'img/chat-off.png';
+		                  WP_TLKIO_URL . 'img/chat-on.png' :
+		                  WP_TLKIO_URL . 'img/chat-off.png';
 
-			// Determine the switch state to turn to
+      // Determine the switch state to turn to
 			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
-			$output .= '<div id="tlkio-switch" style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
+			$output .= '<div style="margin-bottom:5px;text-align:right;background: rgba(0,0,0,0.5);border-radius:5px;padding:2px 7px 2px 2px;font-family:sans-serif;color:#fff;font-size:0.8em;">';
 			$output .= __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG ) . ' &raquo;';
-			$output .= '<form method="post" style="float:right;"><input type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
+			$output .= '<form method="post" style="float:right;"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '" style="border:none;width:20px;padding:0;"></form>';
 			$output .= '</div>';
 
 			update_option( $channel_option_name, $channel_options );
@@ -74,12 +83,11 @@ class WP_TlkIo_Shortcode {
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 		} else {
 			$output .= '<div id="chat_is_off">';
-			if( !empty( $content ) )
-				$output .= $content;
-			else
-				_e( 'This chat is currently disabled.', WP_TLKIO_SLUG );
+			$output .= $off_content;
 			$output .= '</div>';
 		}
+
+		$output .= '</div>';
 		return $output;
 	}
 
