@@ -26,8 +26,6 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'height' ]          = $height;
 		$channel_options[ 'stylesheet' ]      = $stylesheet;
 		$channel_options[ 'default_content' ] = $content;
-
-		$default_content = 
 		
 		$output = '';
 		
