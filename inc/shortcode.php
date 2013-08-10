@@ -12,10 +12,10 @@ class WP_TlkIo_Shortcode {
 	function render_tlkio_shortcode( $atts, $content = null ) {
 		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( array(
-			'channel'    => 'lobby',
-			'width'      => '400px',
-			'height'     => '400px',
-			'stylesheet' => ''
+			'channel'    => WP_TLKIO_DEFAULT_CHANNEL,
+			'width'      => WP_TLKIO_DEFAULT_WIDTH,
+			'height'     => WP_TLKIO_DEFAULT_HEIGHT,
+			'stylesheet' => WP_TLKIO_DEFAULT_STYLESHEET
 			), $atts) );
 
 		$output = '';
@@ -25,7 +25,7 @@ class WP_TlkIo_Shortcode {
 
 		// Get the channel specific options array
 		$channel_options = get_option( $channel_option_name, array(
-			'ison' => false
+			'ison' => WP_TLKIO_DEFAULT_CHANNEL_STATE
 		));
 
 		$channel_options[ 'channel' ]    = $channel;
@@ -33,6 +33,8 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'height' ]     = $height;
 		$channel_options[ 'stylesheet' ] = $stylesheet;
 		
+		$output .= '<div id="wp-tlkio-channel-' . $channel . '">';
+
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
 			
@@ -80,6 +82,8 @@ class WP_TlkIo_Shortcode {
 				_e( 'This chat is currently disabled.', WP_TLKIO_SLUG );
 			$output .= '</div>';
 		}
+
+		$output .= '</div>';
 		return $output;
 	}
 
