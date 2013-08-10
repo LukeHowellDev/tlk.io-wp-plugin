@@ -29,12 +29,22 @@ License: GPL2
 define( 'WP_TLKIO_SLUG', 'wp_tlkio' );
 define( 'WP_TLKIO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_TLKIO_URL',  plugin_dir_url( __FILE__ ) );
-define( 'WP_TLKIO_DEFAULT_CHANNEL', 'lobby' );
-define( 'WP_TLKIO_DEFAULT_WIDTH', '400px' );
-define( 'WP_TLKIO_DEFAULT_HEIGHT', '400px' );
-define( 'WP_TLKIO_DEFAULT_STYLESHEET', '' );
-define( 'WP_TLKIO_DEFAULT_CHANNEL_STATE', false );
-define( 'WP_TLKIO_DEFAULT_OFF_CONTENT', __( 'This chat is currently disabled.', WP_TLKIO_SLUG ) );
+
+$wp_tlkio_shortcode_defaults = array(
+	'channel'     => 'lobby',
+	'width'       => '400px',
+	'height'      => '400px',
+	'stylesheet'  => '',
+	'activated'   => __( 'The chat has been deactivated.', WP_TLKIO_SLUG ),
+	'deactivated' => __( 'The chat has been activated.', WP_TLKIO_SLUG )
+);
+
+$wp_tlkio_options_default = array(
+	'default_content' => __( 'Chat is currently off. Check back later.', WP_TLKIO_SLUG ),
+	'ison' => false
+);
+
+array_push( $wp_tlkio_options_default, $wp_tlkio_shortcode_defaults );
 
 /**
  * Base class for operating the plugin

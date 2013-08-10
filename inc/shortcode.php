@@ -9,33 +9,28 @@ class WP_TlkIo_Shortcode {
 	/**
 	 * Render the shortcode and output the results
 	 */
-	function render_tlkio_shortcode( $atts, $content = null ) {
-		// Extract the shortcode attributes to variables
-		extract(shortcode_atts( array(
-			'channel'    => WP_TLKIO_DEFAULT_CHANNEL,
-			'width'      => WP_TLKIO_DEFAULT_WIDTH,
-			'height'     => WP_TLKIO_DEFAULT_HEIGHT,
-			'stylesheet' => WP_TLKIO_DEFAULT_STYLESHEET
-			), $atts) );
+	function render_tlkio_shortcode( $atts, $content = '' ) {
+		global $wp_tlkio_shortcode_defaults, $wp_tlkio_options_default ;
 
-		$off_content = !empty( $content ) ? $content : WP_TLKIO_DEFAULT_OFF_CONTENT;
-		
-		$output = '';
+		// Extract the shortcode attributes to variables
+		extract(shortcode_atts( $wp_tlkio_shortcode_defaults, $atts) );
 
 		// Chat room option name
 		$channel_option_name = WP_TLKIO_SLUG . '_' . $channel;
 
 		// Get the channel specific options array
-		$channel_options = get_option( $channel_option_name, array(
-			'ison' => WP_TLKIO_DEFAULT_CHANNEL_STATE
-		));
+		$channel_options = get_option( $channel_option_name, $wp_tlkio_options_default);
 
-		$channel_options[ 'channel' ]     = $channel;
-		$channel_options[ 'width' ]       = $width;
-		$channel_options[ 'height' ]      = $height;
-		$channel_options[ 'stylesheet' ]  = $stylesheet;
-		$channel_options[ 'off_content' ] = $off_content;
+		$channel_options[ 'channel' ]         = $channel;
+		$channel_options[ 'width' ]           = $width;
+		$channel_options[ 'height' ]          = $height;
+		$channel_options[ 'stylesheet' ]      = $stylesheet;
+		$channel_options[ 'default_content' ] = $content;
 
+		$default_content = 
+		
+		$output = '';
+		
 		// The current chat room query string to be used
 		$onoff_query = $channel_option_name . '_switch';
 
@@ -83,7 +78,7 @@ class WP_TlkIo_Shortcode {
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 		} else {
 			$output .= '<div id="chat_is_off">';
-			$output .= $off_content;
+			$output .= empty( $channel_options[ 'default_content' ] ) ? $wp_tlkio_options_default[ 'default_content' ] : $channel_options[ 'default_content' ];
 			$output .= '</div>';
 		}
 
