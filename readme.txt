@@ -42,6 +42,13 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 
 == Changelog ==
 
+= 0.4 =
+* Adding AJAX to turn the chats on and off.
+* Adding AJAX to refresh users page if the chat is turned off during session.
+* Reorganized the files and variables.
+* Added option to specify message to show if the chat is activated while users are on the page
+* Added option to specify message to show if the chat is deactivated while users are on the page
+
 = 0.3 =
 * Fixed shortcode error that was echoing output instead of returning.
 * Changed the on/off switch from link to a form(POST method).
@@ -53,6 +60,12 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 * Initial version
 
 == Upgrade notice ==
+
+= 0.4 =
+* AJAX has been added to the plugin for controlling the chat room state.
+* Users currently on the page will have chat autorefresh after admin changes the state.
+* New shortcode option (activated) to show a message to the users if the chat is activated while they are on the page.
+* New shortcode option (deactivated) to show a message to the users if the chat is deactivated while they are on the page.
 
 = 0.3 =
 * Fixes possible error in the output of shortcodes.
