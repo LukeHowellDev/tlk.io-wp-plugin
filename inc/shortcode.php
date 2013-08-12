@@ -78,9 +78,14 @@ class WP_TlkIo_Shortcode {
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 		} else {
-			$output .= '<div id="chat_is_off">';
-			$output .= empty( $channel_options[ 'default_content' ] ) ? $wp_tlkio_options_default[ 'default_content' ] : $channel_options[ 'default_content' ];
-			$output .= '</div>';
+			if( empty( $channel_options[ 'default_content' ] ) ) {
+				$output .= '<div id="chat_is_off">';
+				$output .= $wp_tlkio_options_default[ 'default_content' ];
+				$output .= '</div>';
+			}
+			else {
+				$output .= $channel_options[ 'default_content' ];
+			}
 		}
 
 		$output .= '</div>';
