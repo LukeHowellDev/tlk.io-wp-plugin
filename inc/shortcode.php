@@ -58,8 +58,24 @@ class WP_TlkIo_Shortcode {
 			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
 			$output .= '<div class="tlkio-admin">';
-			$output .= __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG ) . ' &raquo;';
-			$output .= '<form method="post"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '"></form>';
+
+			$output .= '
+						<form method="post">
+							<div class="container">
+								<div class="switch">
+									<input type="radio" name="switch" id="switch-off" checked />
+									<input type="radio" name="switch" id="switch-on" />
+									<label for="switch-off">Off</label>
+									<label for="switch-on">On</label>
+									<span class="toggle"></span>
+								</div> 
+							</div> 
+						</form>
+						';
+
+
+			// $output .= __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG ) . ' &raquo;';
+			// $output .= '<form method="post"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '"></form>';
 			$output .= '</div>';
 
 			update_option( $channel_option_name, $channel_options );
