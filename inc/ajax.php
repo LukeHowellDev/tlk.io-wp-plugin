@@ -13,7 +13,7 @@ class WP_TlkIo_AJAX {
 		global $wp_tlkio_options_default;
 		$channel_option_name = WP_TLKIO_SLUG . '_' . $_POST[ 'channel' ];
 		$channel_options = get_option( $channel_option_name, $wp_tlkio_options_default );
-		$channel_options[ 'ison' ] = !$channel_options[ 'ison' ];
+		$channel_options[ 'ison' ] = 'on' == $_POST[ 'state' ] ? true : false;
 		update_option( $channel_option_name, $channel_options );
 		$result[ 'shortcode' ] = do_shortcode( '[tlkio channel="' . $channel_options[ 'channel' ]  . '" 
 			                         width="' . $channel_options[ 'width' ] . '" 

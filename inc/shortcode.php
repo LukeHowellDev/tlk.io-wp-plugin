@@ -28,19 +28,6 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'default_content' ] = $content;
 		
 		$output = '';
-		
-		// The current chat room query string to be used
-		$onoff_query = $channel_option_name . '_switch';
-
-		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
-			// The chat room is being turned on or off
-			if( isset( $_POST[ $onoff_query ] ) ) {
-				if( 'on' == $_POST[ $onoff_query ] )
-					$channel_options[ 'ison' ] = true;
-				elseif( 'off' == $_POST[ $onoff_query ] )
-					$channel_options[ 'ison' ] = false;
-			}
-		}
 
 		$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
 
@@ -57,26 +44,26 @@ class WP_TlkIo_Shortcode {
       // Determine the switch state to turn to
 			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
-			$output .= '<div class="tlkio-admin">';
+			$offchecked = $channel_options[ 'ison' ] ? '' : ' checked';
+			$onchecked = $channel_options[ 'ison' ] ? ' checked' : '';
 
-			$output .= '
-						<form method="post">
-							<div class="container">
-								<div class="switch">
-									<input type="radio" name="switch" id="switch-off" checked />
-									<input type="radio" name="switch" id="switch-on" />
-									<label for="switch-off">Off</label>
-									<label for="switch-on">On</label>
-									<span class="toggle"></span>
-								</div> 
-							</div> 
-						</form>
-						';
-
-
-			// $output .= __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG ) . ' &raquo;';
-			// $output .= '<form method="post"><input id="' . $channel . '" class="tlkio-switch ' . $switch_function . '" type="image" src="' . $switch_image . '" name="' . $onoff_query . '" value="' . $switch_function . '"></form>';
-			$output .= '</div>';
+			$output .=
+			'
+			<div class="tlkio-admin">
+				<form method="post" class="tlkio-switch">
+					<div class="container">
+						<div class="switch">
+							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
+							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
+							<label for="switch-off">Off</label>
+							<label for="switch-on">On</label>
+							<span class="toggle"></span>
+						</div> 
+					</div> 
+				</form>
+			</div>
+			';
+			// __( 'This bar is only visible to the admin. Turn chat on / off', WP_TLKIO_SLUG )
 
 			update_option( $channel_option_name, $channel_options );
 

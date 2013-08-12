@@ -23,13 +23,15 @@ function tlkio_refresh() {
 }
 
 jQuery(function($) {
-	$( '.tlkio-switch' ).live( 'click', function() {
-		channel = $( this ).attr( 'id' );
+	$( '.tlkio-switch input[type="radio"]' ).live( 'change', function() {
+		channel = $(this).attr('name');
+		state = $(this).attr('value');
 		$.post(
 			WP_TlkIo.ajaxurl,
 			{
 				'action': 'wp_tlkio_update_channel_state',
-				'channel': channel
+				'channel': channel,
+				'state': state
 			},
 			function( response ) {
 				result = $.parseJSON( response );
