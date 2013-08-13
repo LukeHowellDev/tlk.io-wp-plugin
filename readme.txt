@@ -32,6 +32,7 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 * width           - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
 * height          - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
 * css             - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* offclass        - Class to use for the message displayed when chat is off.  To get the default style set this to 'offmessage'. `offclass="offmessage"`
 * activated       - message to show if the chat is activated while users are on the page
 * deactivated     - message to show if the chat is deactivated while users are on the page
 * Offline Message - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'

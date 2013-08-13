@@ -35,6 +35,7 @@ $wp_tlkio_shortcode_defaults = array(
 	'width'       => '400px',
 	'height'      => '400px',
 	'stylesheet'  => '',
+	'offclass'    => 'offmessage',
 	'activated'   => __( 'The chat has been deactivated.', WP_TLKIO_SLUG ),
 	'deactivated' => __( 'The chat has been activated.', WP_TLKIO_SLUG )
 );

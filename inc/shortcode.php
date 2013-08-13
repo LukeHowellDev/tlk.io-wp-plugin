@@ -25,13 +25,16 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'width' ]           = $width;
 		$channel_options[ 'height' ]          = $height;
 		$channel_options[ 'stylesheet' ]      = $stylesheet;
+		$channel_options[ 'offclass' ]        = $offclass;
 		$channel_options[ 'default_content' ] = $content;
 		
 		$output = '';
 
 		$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
 
-		$output .= '<div class="tlkio-channel ' . $channel_status . '" id="wp-tlkio-channel-' . $channel . '">';
+		$admin = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ? ' admin' : '';
+
+		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '">';
 
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
@@ -78,14 +81,10 @@ class WP_TlkIo_Shortcode {
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
 		} else {
-			if( empty( $channel_options[ 'default_content' ] ) ) {
-				$output .= '<div id="chat_is_off">';
-				$output .= $wp_tlkio_options_default[ 'default_content' ];
-				$output .= '</div>';
-			}
-			else {
-				$output .= $channel_options[ 'default_content' ];
-			}
+			$class = empty( $channel_options[ 'offclass' ] ) ? '' : ' class="' . $channel_options[ 'offclass' ] . '"';
+			$output .= '<div' . $class . '>';
+			$output .= empty( $channel_options[ 'default_content' ] ) ? $wp_tlkio_options_default[ 'default_content' ] : $channel_options[ 'default_content' ];;
+			$output .= '</div>';
 		}
 
 		$output .= '</div>';
