@@ -63,6 +63,7 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 == Upgrade notice ==
 
 = 0.4 =
+* Styling has been added to the message displayed when chat is off.  If you want to remove the styling add a shortcode option of `offclass=""`.  You can alternatively add a custom class to that option and style it how you want.
 * AJAX has been added to the plugin for controlling the chat room state.
 * Users currently on the page will have chat autorefresh after admin changes the state.
 * New shortcode option (activated) to show a message to the users if the chat is activated while they are on the page.
