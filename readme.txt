@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 0.3
+Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,14 +24,17 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 
 = What short code do I use? =
 
-`[tlkio]` or `[tlkio channel="lobby" width="100%" height="500px" css="http://yourdomain.com/pathtoyour.css"]Chat is currently off. Check back later.[/tlkio]`
+`[tlkio]` or `[tlkio channel="lobby" width="100%" height="500px" css="http://yourdomain.com/pathtoyour.css" activated="The chat has been activated." deactivated="The chat has been deactivated."]Chat is currently off. Check back later.[/tlkio]`
 
 = What short code options do I have? =
 
-* channel - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
-* width - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* height - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* css - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* channel         - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
+* width           - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* height          - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* css             - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* offclass        - Class to use for the message displayed when chat is off.  To get the default style set this to 'offmessage'. `offclass="offmessage"`
+* activated       - message to show if the chat is activated while users are on the page
+* deactivated     - message to show if the chat is deactivated while users are on the page
 * Offline Message - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
 
 == Screenshots ==
@@ -39,6 +42,13 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 1. Chat demo
 
 == Changelog ==
+
+= 0.4 =
+* Adding AJAX to turn the chats on and off.
+* Adding AJAX to refresh users page if the chat is turned off during session.
+* Reorganized the files and variables.
+* Added option to specify message to show if the chat is activated while users are on the page
+* Added option to specify message to show if the chat is deactivated while users are on the page
 
 = 0.3 =
 * Fixed shortcode error that was echoing output instead of returning.
@@ -51,6 +61,13 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 * Initial version
 
 == Upgrade notice ==
+
+= 0.4 =
+* Styling has been added to the message displayed when chat is off.  If you want to remove the styling add a shortcode option of `offclass=""`.  You can alternatively add a custom class to that option and style it how you want.
+* AJAX has been added to the plugin for controlling the chat room state.
+* Users currently on the page will have chat autorefresh after admin changes the state.
+* New shortcode option (activated) to show a message to the users if the chat is activated while they are on the page.
+* New shortcode option (deactivated) to show a message to the users if the chat is deactivated while they are on the page.
 
 = 0.3 =
 * Fixes possible error in the output of shortcodes.

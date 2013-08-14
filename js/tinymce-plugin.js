@@ -1,4 +1,4 @@
-(function() {
+jQuery(function($) {
     tinymce.create('tinymce.plugins.wp_tlkio', {
         /**
          * Initializes the plugin, this will be executed after the plugin has been created.
@@ -17,7 +17,7 @@
  
             ed.addCommand('wp_tlkio', function() {
                 // triggers the thickbox
-                var width = jQuery(window).width(), H = jQuery(window).height(), W = ( 720 < width ) ? 720 : width;
+                var width = $(window).width(), H = $(window).height(), W = ( 720 < width ) ? 720 : width;
                 W = W - 80;
                 H = H - 84;
                 tb_show( 'WP tlk.io Plugin', '#TB_inline?width=' + W + '&height=' + H + '&inlineId=wp-tlkio-popup' );
@@ -44,8 +44,8 @@
     tinymce.PluginManager.add( 'wp_tlkio', tinymce.plugins.wp_tlkio );
 
     // executes this when the DOM is ready
-    jQuery(function(){
-        var form = jQuery( '#wp-tlkio-popup' );
+    $(function(){
+        var form = $( '#wp-tlkio-popup' );
         
         var table = form.find('table');
         form.appendTo('body').hide();
@@ -56,10 +56,13 @@
             // again, this is not the most elegant way to do this
             // but well, this gets the job done nonetheless
             var options = { 
-                'channel'    : '',
-                'width'      : '',
-                'height'     : '',
-                'css'        : ''
+                'channel'     : '',
+                'width'       : '',
+                'height'      : '',
+                'css'         : '',
+                'offclass'    : '',
+                'activated'   : '',
+                'deactivated' : ''
                 };
             var shortcode = '[tlkio';
             
@@ -71,8 +74,10 @@
                     shortcode += ' ' + index + '="' + value + '"';
             }
             
-            var value = jQuery( '#wp-tlkio-off-message' ).val();
-            shortcode += ']' + value + '[/tlkio]';
+            var value = $( '#wp-tlkio-off-message' ).val();
+            shortcode += ']';
+            if( '' != value )
+                shortcode += value + '[/tlkio]';
             
             // inserts the shortcode into the active editor
             tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
@@ -81,4 +86,4 @@
             tb_remove();
         });
     });
-})();
+});
