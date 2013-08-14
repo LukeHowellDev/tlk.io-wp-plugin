@@ -56,10 +56,13 @@ jQuery(function($) {
             // again, this is not the most elegant way to do this
             // but well, this gets the job done nonetheless
             var options = { 
-                'channel'    : '',
-                'width'      : '',
-                'height'     : '',
-                'css'        : ''
+                'channel'     : '',
+                'width'       : '',
+                'height'      : '',
+                'css'         : '',
+                'offclass'    : '',
+                'activated'   : '',
+                'deactivated' : ''
                 };
             var shortcode = '[tlkio';
             
@@ -72,7 +75,9 @@ jQuery(function($) {
             }
             
             var value = $( '#wp-tlkio-off-message' ).val();
-            shortcode += ']' + value + '[/tlkio]';
+            shortcode += ']';
+            if( '' != value )
+                shortcode += value + '[/tlkio]';
             
             // inserts the shortcode into the active editor
             tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);

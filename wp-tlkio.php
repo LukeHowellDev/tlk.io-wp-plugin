@@ -25,27 +25,30 @@ License: GPL2
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Defines
+// Defines for plugin functionality
 define( 'WP_TLKIO_SLUG', 'wp_tlkio' );
 define( 'WP_TLKIO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_TLKIO_URL',  plugin_dir_url( __FILE__ ) );
 
+// Default shortcode options
 $wp_tlkio_shortcode_defaults = array(
 	'channel'     => 'lobby',
 	'width'       => '400px',
 	'height'      => '400px',
 	'stylesheet'  => '',
 	'offclass'    => 'offmessage',
-	'activated'   => __( 'The chat has been deactivated.', WP_TLKIO_SLUG ),
-	'deactivated' => __( 'The chat has been activated.', WP_TLKIO_SLUG )
+	'activated'   => __( 'The chat has been activated.', WP_TLKIO_SLUG ),
+	'deactivated' => __( 'The chat has been deactivated.', WP_TLKIO_SLUG )
 );
 
+// Options no included in the shortcode
 $wp_tlkio_options_default = array(
 	'default_content' => __( 'Chat is currently off. Check back later.', WP_TLKIO_SLUG ),
 	'ison' => false
 );
 
-array_push( $wp_tlkio_options_default, $wp_tlkio_shortcode_defaults );
+// Combine the shortcodes
+array_merge( $wp_tlkio_options_default, $wp_tlkio_shortcode_defaults );
 
 /**
  * Base class for operating the plugin
@@ -81,28 +84,19 @@ class WP_TlkIo {
 		load_plugin_textdomain( WP_TLKIO_SLUG, false, WP_TLKIO_PATH . 'lang' );
 
 		// Load JavaScript and stylesheets
-		$this->register_scripts_and_styles();
+		$this->scripts_and_styles();
+
+		// Hook AJAX calls
+		$this->ajax_hooks( $ajax );
 
 		// Register the shortcode [tlkio]
 		add_shortcode( 'tlkio', array( &$shortcode, 'render_tlkio_shortcode' ) );
-
-		// Add AJAX hook to update the chat
-		add_action( 'wp_ajax_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
-		add_action( 'wp_ajax_nopriv_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
-
-		// Add AJAX hook to check for updated state
-		add_action( 'wp_ajax_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
-		add_action( 'wp_ajax_nopriv_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
-
-		// Add AJAX hook to update the chat
-		add_action( 'wp_ajax_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
-		add_action( 'wp_ajax_nopriv_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
 
 		// Add code to the admin footer
 		add_action( 'in_admin_footer', array( &$shortcode, 'add_shortcode_form' ) );
 
 		// Load the tinymce extras if the user can edit things and has rich editing enabled
-		if ( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
+		if( is_admin() && ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' ) ) && get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins',   array( &$tinymce, 'register_plugin' ) );
 			add_filter( 'mce_buttons',            array( &$tinymce, 'register_button' ) );
 		}
@@ -112,7 +106,7 @@ class WP_TlkIo {
 	 * Registers and enqueues stylesheets for the administration panel and the
 	 * public facing site.
 	 */
-	function register_scripts_and_styles() {
+	function scripts_and_styles() {
 		if ( is_admin() )
 		{
 			wp_register_style( WP_TLKIO_SLUG . '-admin-style', WP_TLKIO_URL . 'css/admin-style.css' );
@@ -125,11 +119,26 @@ class WP_TlkIo {
 			wp_register_script( WP_TLKIO_SLUG . '-script', WP_TLKIO_URL . 'js/script.js', array( 'jquery' ) );
 			wp_enqueue_script( WP_TLKIO_SLUG . '-script' );
 			wp_localize_script( WP_TLKIO_SLUG . '-script', 'WP_TlkIo', array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'channel_off_message' => __( 'The chat has been closed.', WP_TLKIO_SLUG ),
-				'channel_on_message' => __( 'The chat is open. Enjoy.', WP_TLKIO_SLUG )
+				'ajaxurl' => admin_url( 'admin-ajax.php' )
 			));
 		}
+	}
+
+	/**
+	 * Registers AJAX hooks
+	 */
+	function ajax_hooks( $ajax ) {
+		// Add AJAX hook to update the chat
+		add_action( 'wp_ajax_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_update_channel_state', array( &$ajax, 'update_channel_state' ) );
+
+		// Add AJAX hook to check for updated state
+		add_action( 'wp_ajax_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_check_state', array( &$ajax, 'channel_state' ) );
+
+		// Add AJAX hook to update the chat
+		add_action( 'wp_ajax_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
+		add_action( 'wp_ajax_nopriv_wp_tlkio_refresh_channel', array( &$ajax, 'refresh_channel' ) );
 	}
 }
 new WP_TlkIo;

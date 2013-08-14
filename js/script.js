@@ -1,3 +1,6 @@
+/**
+ * Copy of loading function from tlk.io/embed.js
+ */
 function tlkio_refresh() {
 	var target_element  = document.getElementById('tlkio'),
 	    channel_name    = target_element.getAttribute('data-channel'),
@@ -22,7 +25,9 @@ function tlkio_refresh() {
 	target_element.appendChild(iframe);	
 }
 
+// DOM is ready
 jQuery(function($) {
+	// tlk.io on/off switch is changed.
 	$( '.tlkio-switch input[type="radio"]' ).live( 'change', function() {
 		channel = $(this).attr('name');
 		state = $(this).attr('value');
@@ -44,6 +49,7 @@ jQuery(function($) {
 		return false;
 	});
 
+	// Refresh the window when the chat state has changed
 	setInterval(function() {
 		$( '.tlkio-channel' ).each(function() {
 			var channel = $( this ).attr( 'id' ).split( 'wp-tlkio-channel-' )[1];
@@ -65,19 +71,12 @@ jQuery(function($) {
 							function( response ) {
 								result = $.parseJSON( response );
 								$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
-								if( 'off' == result.state ) {
-									$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + WP_TlkIo.channel_off_message + '</div>' );
-									setTimeout(function() {
-										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
-									}, 5000);
-								}
-								else {
-									$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + WP_TlkIo.channel_on_message + '</div>' );
-									setTimeout(function() {
-										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
-									}, 5000);
+								if( 'on' == result.state ) 
 									tlkio_refresh();
-								}
+								$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + result.message + '</div>' );
+									setTimeout(function() {
+										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
+									}, 5000);
 							}
 						);
 					}
