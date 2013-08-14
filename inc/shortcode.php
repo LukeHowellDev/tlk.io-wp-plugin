@@ -54,7 +54,7 @@ class WP_TlkIo_Shortcode {
 
 			$output .=
 			'
-			<div class="tlkio-admin" style="width:' . $channel_options[ 'width' ] . ';min-width: 300px;">
+			<div class="tlkio-admin" style="width:' . $channel_options[ 'width' ] . ';">
 				<form method="post" class="tlkio-switch">
 					<div class="container">
 						<div class="switch">
@@ -74,7 +74,7 @@ class WP_TlkIo_Shortcode {
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
 			$output .= ' data-channel="' . $channel . '"';
-			$output .= ' style="overflow: hidden;width:' . $width . ';min-width: 300px;height:' . $height . ';max-width:100%;"';
+			$output .= ' style="overflow: hidden;width:' . $width . ';height:' . $height . ';max-width:100%;"';
 			$output .= ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';

@@ -71,12 +71,17 @@ jQuery(function($) {
 							function( response ) {
 								result = $.parseJSON( response );
 								$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
-								if( 'on' == result.state ) 
+								if( 'on' == result.state )
 									tlkio_refresh();
 								$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + result.message + '</div>' );
-									setTimeout(function() {
-										$( '#tlkio-' + result.channel + '-message'  ).slideUp();
-									}, 5000);
+								opening_timeout = 'on' == result.state ? 1000 : 250;
+								setTimeout(function() {
+									$( '#tlkio-' + result.channel + '-message' ).slideDown(function() {
+										setTimeout(function() {
+											$( '#tlkio-' + result.channel + '-message'  ).slideUp();
+										}, 5000);	
+									});
+								}, opening_timeout);
 							}
 						);
 					}

@@ -104,7 +104,7 @@
 }
 .tlkio-channel .offmessage {
   position: relative;
-  top: 70px;
+  top: 0;
   margin: 0 auto;
   padding: 20px 40px;
   width: 75%;
@@ -121,6 +121,10 @@
   text-align: center;
   text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.7);
 }
+.tlkio-channel.admin .offmessage {
+  top: 40px;
+}
+
 .tlkio-channel.admin .offmessage.offmessage:before {
   position: absolute;
   bottom: 100%;
@@ -141,7 +145,7 @@
   padding: 14px;
   border-radius: 10px;
   min-width: 50px;
-  display: block;
+  display: none;
   width: 50%;
   margin: 15px auto;
 }
