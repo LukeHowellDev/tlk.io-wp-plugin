@@ -43,7 +43,7 @@ $wp_tlkio_shortcode_defaults = array(
 
 // Options no included in the shortcode
 $wp_tlkio_options_default = array(
-	'default_content' => __( 'Chat is currently off. Check back later.', WP_TLKIO_SLUG ),
+	'default_content' => __( 'Chat is currently off.<br>Check back later.', WP_TLKIO_SLUG ),
 	'ison' => false
 );
 
