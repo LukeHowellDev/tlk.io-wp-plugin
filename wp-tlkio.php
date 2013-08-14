@@ -33,7 +33,7 @@ define( 'WP_TLKIO_URL',  plugin_dir_url( __FILE__ ) );
 // Default shortcode options
 $wp_tlkio_shortcode_defaults = array(
 	'channel'     => 'lobby',
-	'width'       => '400px',
+	'width'       => '100%',
 	'height'      => '400px',
 	'stylesheet'  => '',
 	'offclass'    => 'offmessage',

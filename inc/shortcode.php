@@ -96,6 +96,7 @@ class WP_TlkIo_Shortcode {
 	 * Adds the code for the shortcode form to the footer
 	 */
 	function add_shortcode_form() {
+		global $wp_tlkio_shortcode_defaults;
 		echo '
 		<div id="wp-tlkio-popup" class="no_preview" style="display:none;">
 	      <div id="wp-tlkio-sc-form-wrap">
@@ -107,7 +108,7 @@ class WP_TlkIo_Shortcode {
 	                          <td class="label">' . sprintf( __( 'Channel', WP_TLKIO_SLUG ) ) . '</td>
 	                          <td class="field">
 	                              <input name="channel" id="wp-tlkio-channel" class="wp-tlkio-input">
-	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the channel name for the chat room. Leave blank for default channel of %1$s.', WP_TLKIO_SLUG ), '"lobby"' ) . '</span>
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the channel name for the chat room. Leave blank for default channel of %1$s.', WP_TLKIO_SLUG ), '"' . $wp_tlkio_shortcode_defaults[ 'channel' ] . '"' ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
@@ -116,7 +117,7 @@ class WP_TlkIo_Shortcode {
 	                          <td class="label">' . sprintf( __( 'Width', WP_TLKIO_SLUG ) ) . '</td>
 	                          <td class="field">
 	                              <input name="width" id="wp-tlkio-width" class="wp-tlkio-input">
-	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the width of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), '400px' ) . '</span>
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the width of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'width' ] ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
@@ -125,7 +126,7 @@ class WP_TlkIo_Shortcode {
 	                          <td class="label">' . sprintf( __( 'Height', WP_TLKIO_SLUG ) ) . '</td>
 	                          <td class="field">
 	                              <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">
-	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the height of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), '400px' ) . '</span>
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the height of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'height' ] ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
@@ -143,7 +144,7 @@ class WP_TlkIo_Shortcode {
 	                          <td class="label">' . sprintf( __( 'Off Class', WP_TLKIO_SLUG ) ) . '</td>
 	                          <td class="field">
 	                              <input name="css" id="wp-tlkio-offclass" class="wp-tlkio-input">
-	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Class that will wrap the message displayed when the chat is off.  Defaults to %1$s.', WP_TLKIO_SLUG ), 'class="offmessage"' ) . '</span>
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Class that will wrap the message displayed when the chat is off.  Defaults to %1$s.', WP_TLKIO_SLUG ), 'class="' . $wp_tlkio_shortcode_defaults[ 'offclass' ] . '"' ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
