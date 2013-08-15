@@ -36,7 +36,7 @@ class WP_TlkIo_Shortcode {
 
 		$admin = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ? ' admin' : '';
 
-		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="height:' . $channel_options[ 'height' ] . ';width:' . $channel_options[ 'width' ] . ';">';
+		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="width:' . $channel_options[ 'width' ] . ';float:' . $channel_options[ 'float' ] . ';">';
 
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
@@ -75,7 +75,7 @@ class WP_TlkIo_Shortcode {
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
 			$output .= ' data-channel="' . $channel . '"';
-			$output .= ' style="overflow:hidden;width:100%;height:100%;"';
+			$output .= ' style="overflow:hidden;height:' . $channel_options[ 'height' ] . ';width:' . $channel_options[ 'width' ] . ';"';
 			$output .= ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';

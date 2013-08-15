@@ -35,6 +35,7 @@ $wp_tlkio_shortcode_defaults = array(
 	'channel'     => 'lobby',
 	'width'       => '100%',
 	'height'      => '400px',
+	'float'       => 'none',
 	'stylesheet'  => '',
 	'offclass'    => 'offmessage',
 	'activated'   => __( 'The chat has been activated.', WP_TLKIO_SLUG ),
