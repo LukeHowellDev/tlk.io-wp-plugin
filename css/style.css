@@ -1,4 +1,5 @@
 .tlkio-channel { 
+  float: none;
   position: relative;
   min-height: 400px;
   max-width: 100%;
@@ -7,7 +8,19 @@
   -webkit-border-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.18) 20%, rgba(0,0,0,0.18) 80%, rgba(0,0,0,0)) 0 0 100% 0 stretch;
 }
 
-.tlkio-channel .tlkio-admin {
+.tlkio-channel .tlkio-admin-note {
+  position: absolute;
+  z-index: 999;
+  left: 2%;
+  top: 5px;
+  color: #4A4A4A;
+  width: 95%;
+  font-size: 12px;
+  font-family: "helvetica neue";
+  display: none;
+}
+
+.tlkio-channel .tlkio-admin-bar {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.1)));
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
@@ -22,7 +35,7 @@
   height: 64px;
   font-family: "helvetica neue";
 }
-.tlkio-channel .tlkio-admin .container {
+.tlkio-channel .tlkio-admin-bar .container {
   height: 32px;
   right: 50px;
   margin: 0;
@@ -30,7 +43,7 @@
   top: 16px;
   width: 80px;
 }
-.tlkio-channel .tlkio-admin .container .switch {
+.tlkio-channel .tlkio-admin-bar .container .switch {
   background: #fff;
   border-radius: 16px;
   display: block;
@@ -38,7 +51,7 @@
   position: relative;
   width: 80px;
 }
-.tlkio-channel .tlkio-admin .container .switch label {
+.tlkio-channel .tlkio-admin-bar .container .switch label {
   color: #fff;
   font-size: 24px;
   font-weight: 300;
@@ -50,17 +63,17 @@
   transition: color 0.2s ease;
   width: 50px;
 }
-.tlkio-channel .tlkio-admin .container .switch label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .container .switch label:nth-of-type(1) {
   left: -70%;
   position: absolute;
   text-align: right;
 }
-.tlkio-channel .tlkio-admin .container .switch label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .container .switch label:nth-of-type(2) {
   position: absolute;
   right: -70%;
   text-align: left;
 }
-.tlkio-channel .tlkio-admin .container .switch input {
+.tlkio-channel .tlkio-admin-bar .container .switch input {
   cursor: pointer;
   height: 32px;
   left: 0;
@@ -70,28 +83,28 @@
   width: 80px;
   z-index: 2;
 }
-.tlkio-channel .tlkio-admin .container .switch input:checked ~ label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ label:nth-of-type(1) {
   color: red;
 }
-.tlkio-channel .tlkio-admin .container .switch input:checked ~ label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ label:nth-of-type(2) {
   color: #808080;
 }
-.tlkio-channel .tlkio-admin .container .switch input ~ :checked ~ label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ label:nth-of-type(1) {
   color: #808080;
 }
-.tlkio-channel .tlkio-admin .container .switch input ~ :checked ~ label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ label:nth-of-type(2) {
   color: green;
 }
-.tlkio-channel .tlkio-admin .container .switch input:checked ~ .toggle {
+.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ .toggle {
   left: 2px;
 }
-.tlkio-channel .tlkio-admin .container .switch input ~ :checked ~ .toggle {
+.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ .toggle {
   left: 50px;
 }
-.tlkio-channel .tlkio-admin .container .switch input:checked {
+.tlkio-channel .tlkio-admin-bar .container .switch input:checked {
   z-index: 0;
 }
-.tlkio-channel .tlkio-admin .container .switch .toggle {
+.tlkio-channel .tlkio-admin-bar .container .switch .toggle {
   background: #4a4a4a;
   border-radius: 50%;
   height: 28px;

@@ -19,7 +19,7 @@ jQuery(function($) {
                 // triggers the thickbox
                 var width = $(window).width(), H = $(window).height(), W = ( 720 < width ) ? 720 : width;
                 W = W - 80;
-                H = H - 84;
+                H = H - 120;
                 tb_show( 'WP tlk.io Plugin', '#TB_inline?width=' + W + '&height=' + H + '&inlineId=wp-tlkio-popup' );
             });
         },
@@ -59,6 +59,7 @@ jQuery(function($) {
                 'channel'     : '',
                 'width'       : '',
                 'height'      : '',
+                'float'       : '',
                 'css'         : '',
                 'offclass'    : '',
                 'activated'   : '',
@@ -81,6 +82,11 @@ jQuery(function($) {
             
             // inserts the shortcode into the active editor
             tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+
+            // Clear all the values
+            for( var index in options) {
+                var value = table.find('#wp-tlkio-' + index).val( '' );
+            }
             
             // closes Thickbox
             tb_remove();

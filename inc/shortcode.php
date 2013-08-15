@@ -24,6 +24,7 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'channel' ]         = $channel;
 		$channel_options[ 'width' ]           = $width;
 		$channel_options[ 'height' ]          = $height;
+		$channel_options[ 'float' ]           = $float;
 		$channel_options[ 'stylesheet' ]      = $stylesheet;
 		$channel_options[ 'offclass' ]        = $offclass;
 		$channel_options[ 'activated' ]       = $activated;
@@ -36,7 +37,7 @@ class WP_TlkIo_Shortcode {
 
 		$admin = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ? ' admin' : '';
 
-		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="height:' . $channel_options[ 'height' ] . ';width:' . $channel_options[ 'width' ] . ';">';
+		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="width:' . $channel_options[ 'width' ] . ';float:' . $channel_options[ 'float' ] . ';">';
 
 		// Display the on/off button if the user is an able to edit posts or pages.
 		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
@@ -55,17 +56,20 @@ class WP_TlkIo_Shortcode {
 			$output .=
 			'
 			<div class="tlkio-admin">
-				<form method="post" class="tlkio-switch">
-					<div class="container">
-						<div class="switch">
-							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
-							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
-							<label for="switch-off">Off</label>
-							<label for="switch-on">On</label>
-							<span class="toggle"></span>
+				<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
+				<div class="tlkio-admin-bar">
+					<form method="post" class="tlkio-switch">
+						<div class="container">
+							<div class="switch">
+								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
+								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
+								<label for="switch-off">Off</label>
+								<label for="switch-on">On</label>
+								<span class="toggle"></span>
+							</div> 
 						</div> 
-					</div> 
-				</form>
+					</form>
+				</div>
 			</div>
 			';
 		}
@@ -74,7 +78,7 @@ class WP_TlkIo_Shortcode {
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
 			$output .= ' data-channel="' . $channel . '"';
-			$output .= ' style="overflow:hidden;width:100%;height:100%;"';
+			$output .= ' style="overflow:hidden;height:' . $channel_options[ 'height' ] . ';"';
 			$output .= ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
@@ -127,6 +131,15 @@ class WP_TlkIo_Shortcode {
 	                          <td class="field">
 	                              <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">
 	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the height of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'height' ] ) . '</span>
+	                          </td>
+	                      </tr>
+	                  </tbody>
+	                  <tbody>
+	                      <tr class="form-row">
+	                          <td class="label">' . sprintf( __( 'Float', WP_TLKIO_SLUG ) ) . '</td>
+	                          <td class="field">
+	                              <input name="float" id="wp-tlkio-float" class="wp-tlkio-input">
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'CSS to float the channel container.  Default is %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'float' ] ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
