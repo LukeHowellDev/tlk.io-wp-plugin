@@ -59,6 +59,7 @@ jQuery(function($) {
                 'channel'     : '',
                 'width'       : '',
                 'height'      : '',
+                'float'       : '',
                 'css'         : '',
                 'offclass'    : '',
                 'activated'   : '',

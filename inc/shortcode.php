@@ -24,6 +24,7 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'channel' ]         = $channel;
 		$channel_options[ 'width' ]           = $width;
 		$channel_options[ 'height' ]          = $height;
+		$channel_options[ 'float' ]           = $float;
 		$channel_options[ 'stylesheet' ]      = $stylesheet;
 		$channel_options[ 'offclass' ]        = $offclass;
 		$channel_options[ 'activated' ]       = $activated;
@@ -54,19 +55,21 @@ class WP_TlkIo_Shortcode {
 
 			$output .=
 			'
-			<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
 			<div class="tlkio-admin">
-				<form method="post" class="tlkio-switch">
-					<div class="container">
-						<div class="switch">
-							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
-							<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
-							<label for="switch-off">Off</label>
-							<label for="switch-on">On</label>
-							<span class="toggle"></span>
+				<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
+				<div class="tlkio-admin-bar">
+					<form method="post" class="tlkio-switch">
+						<div class="container">
+							<div class="switch">
+								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
+								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
+								<label for="switch-off">Off</label>
+								<label for="switch-on">On</label>
+								<span class="toggle"></span>
+							</div> 
 						</div> 
-					</div> 
-				</form>
+					</form>
+				</div>
 			</div>
 			';
 		}
@@ -128,6 +131,15 @@ class WP_TlkIo_Shortcode {
 	                          <td class="field">
 	                              <input name="height" id="wp-tlkio-height" class="wp-tlkio-input">
 	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify the height of the chat. Leave blank for the default of %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'height' ] ) . '</span>
+	                          </td>
+	                      </tr>
+	                  </tbody>
+	                  <tbody>
+	                      <tr class="form-row">
+	                          <td class="label">' . sprintf( __( 'Float', WP_TLKIO_SLUG ) ) . '</td>
+	                          <td class="field">
+	                              <input name="float" id="wp-tlkio-float" class="wp-tlkio-input">
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'CSS to float the channel container.  Default is %1$s.', WP_TLKIO_SLUG ), $wp_tlkio_shortcode_defaults[ 'float' ] ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
