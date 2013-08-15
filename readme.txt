@@ -1,18 +1,20 @@
 === WP tlk.io ===
 Contributors: snumb130, bbodine1
 Donate link: 
-Tags: chat, tlk.io
+Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
 Tested up to: 3.6
 Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A plugin to integrate tlk.io chat on any page of your website.
+A plugin to integrate tlk.io chat on any page of your website. tlk.io [talk·eeo] is a web chat that is open to anyone and channels are owner-free.
 
 == Description ==
 
-A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website.  The plugin will allow users to insert a tlk.io chatroom in a post with a shortcode. There is currently no options page to adjust settings. All customs settings are done through the shortcode generator located in the WYSIWYG editor of all pages and posts. Look for the blue tlk.io logo icon (blue cloud) in the editor.
+A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website.  The plugin will allow users to insert a tlk.io chatroom in a post or page with a shortcode. There is currently no options page to adjust settings. All customs settings are done through the shortcode generator located in the WYSIWYG editor of all pages and posts. Look for the blue tlk.io logo icon (blue cloud) in the editor.
+
+For more information about tlk.io chat visit the [tlk.io](http://tlk.io) website.
 
 == Installation ==
 
@@ -24,18 +26,20 @@ A plugin to integrate [tlk.io chat](http://tlk.io) on any page of your website. 
 
 = What short code do I use? =
 
-`[tlkio]` or `[tlkio channel="lobby" width="100%" height="500px" css="http://yourdomain.com/pathtoyour.css" activated="The chat has been activated." deactivated="The chat has been deactivated."]Chat is currently off. Check back later.[/tlkio]`
+`[tlkio]`
+or
+`[tlkio channel="lobby" width="100%" height="500px" css="http://yourdomain.com/pathtoyour.css" activated="The chat has been activated." deactivated="The chat has been deactivated."]Chat is currently off. Check back later.[/tlkio]`
 
 = What short code options do I have? =
 
-* channel         - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
-* width           - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* height          - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* css             - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
-* offclass        - Class to use for the message displayed when chat is off.  To get the default style set this to 'offmessage'. `offclass="offmessage"`
-* activated       - message to show if the chat is activated while users are on the page
-* deactivated     - message to show if the chat is deactivated while users are on the page
-* Offline Message - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
+* _channel_         - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
+* _width_           - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* _height_          - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* _css_             - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* _offclass_        - Class to use for the message displayed when chat is off.  To get the default style set this to 'offmessage'. `offclass="offmessage"`
+* _activated_       - message to show if the chat is activated while users are on the page
+* _deactivated_     - message to show if the chat is deactivated while users are on the page
+* _Offline Message_ - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
 
 == Screenshots ==
 
