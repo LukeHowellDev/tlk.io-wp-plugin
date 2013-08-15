@@ -54,7 +54,7 @@ class WP_TlkIo_Shortcode {
 
 			$output .=
 			'
-			<div class="tlkio-admin-note">This bar is only viewable by admins.</div>
+			<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
 			<div class="tlkio-admin">
 				<form method="post" class="tlkio-switch">
 					<div class="container">
