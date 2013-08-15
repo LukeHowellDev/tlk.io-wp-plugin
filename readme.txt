@@ -32,14 +32,15 @@ or
 
 = What short code options do I have? =
 
-* _channel_         - the name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
-* _width_           - how wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* _height_          - how high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
-* _css_             - link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
+* _channel_         - The name of the channel that you want to use. ex. 'lobby' or 'somethingrandom21'
+* _width_           - How wide will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* _height_          - How high will the chat window be? use percentage or pixel width. ex. '100%' or '500px'
+* _float_           - Where with the channel be floated when less than 100% width. ex. 'right' or 'left'. Default is none.
+* _css_             - Link to an external stylesheet to easily add custom style to the embedded tlk.io chat. ex. 'http://yourdomain.com/custom.css'
 * _offclass_        - Class to use for the message displayed when chat is off.  To get the default style set this to 'offmessage'. `offclass="offmessage"`
-* _activated_       - message to show if the chat is activated while users are on the page
-* _deactivated_     - message to show if the chat is deactivated while users are on the page
-* _Offline Message_ - this can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
+* _activated_       - Message to show if the chat is activated while users are on the page
+* _deactivated_     - Message to show if the chat is deactivated while users are on the page
+* _Offline Message_ - This can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Plain text message of what you want to say'
 
 == Screenshots ==
 
