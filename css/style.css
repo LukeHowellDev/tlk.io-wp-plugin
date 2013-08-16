@@ -17,6 +17,11 @@
   width: 95%;
   font-size: 12px;
   font-family: "helvetica neue";
+  -webkit-transition: 400ms;
+  -moz-transition: 400ms;
+  -ms-transition: 400ms;
+  -o-transition: 400ms;
+  transition: 400ms;
   opacity: 0;
 }
 
