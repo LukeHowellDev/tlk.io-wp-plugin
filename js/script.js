@@ -36,8 +36,7 @@ jQuery(function($) {
 			{
 				'action': 'wp_tlkio_update_channel_state',
 				'channel': channel,
-				'state': state,
-				'switch_clicked': true
+				'state': state
 			},
 			function( response ) {
 				result = $.parseJSON( response );

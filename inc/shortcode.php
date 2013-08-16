@@ -12,9 +12,6 @@ class WP_TlkIo_Shortcode {
 	function render_tlkio_shortcode( $atts, $content = '' ) {
 		global $wp_tlkio_shortcode_defaults, $wp_tlkio_options_default ;
 
-		// Check for ajax call
-		$isajax = isset( $_POST[ 'switch_clicked' ] ) ? true : false;
-
 		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( $wp_tlkio_shortcode_defaults, $atts) );
 
@@ -56,12 +53,10 @@ class WP_TlkIo_Shortcode {
 			$offchecked = $channel_options[ 'ison' ] ? '' : ' checked';
 			$onchecked = $channel_options[ 'ison' ] ? ' checked' : '';
 
-			$admin_note_style = $isajax ? ' style="opacity:1;"' : '';
-
 			$output .=
 			'
 			<div class="tlkio-admin">
-				<div class="tlkio-admin-note"' . $admin_note_style . '>' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
+				<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
 				<div class="tlkio-admin-bar">
 					<form method="post" class="tlkio-switch">
 						<div class="container">
