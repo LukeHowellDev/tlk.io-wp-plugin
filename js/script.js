@@ -28,14 +28,14 @@ function tlkio_refresh() {
 // DOM is ready
 jQuery(function($) {
 	// Admin bar is hovered
-	$( '.tlkio-admin' ).on({
-		mouseenter: function() {
-			$( this ).find( '.tlkio-admin-note' ).fadeIn();
-		},
-		mouseleave: function() {
-			$( this ).find( '.tlkio-admin-note' ).fadeOut();
-		}
-	});
+	// $( '.tlkio-admin' ).on({
+	// 	mouseenter: function() {
+	// 		$( this ).find( '.tlkio-admin-note' ).fadeIn();
+	// 	},
+	// 	mouseleave: function() {
+	// 		$( this ).find( '.tlkio-admin-note' ).fadeOut();
+	// 	}
+	// });
 
 	// tlk.io on/off switch is changed.
 	$( '.tlkio-switch input[type="radio"]' ).live( 'change', function() {
