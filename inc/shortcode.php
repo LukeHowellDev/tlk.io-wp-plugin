@@ -12,6 +12,8 @@ class WP_TlkIo_Shortcode {
 	function render_tlkio_shortcode( $atts, $content = '' ) {
 		global $wp_tlkio_shortcode_defaults, $wp_tlkio_options_default ;
 
+		// Do not reload the admin bar
+		$ajax = isset( $_POST[ 'noadmin' ] ) ? true : false;
 		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( $wp_tlkio_shortcode_defaults, $atts) );
 
@@ -33,47 +35,52 @@ class WP_TlkIo_Shortcode {
 		
 		$output = '';
 
-		$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
+		if( !$ajax ) { // Only run this when not an ajax call
 
-		$admin = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ? ' admin' : '';
+			$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
 
-		$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="width:' . $channel_options[ 'width' ] . ';float:' . $channel_options[ 'float' ] . ';">';
+			$admin = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ? ' admin' : '';
 
-		// Display the on/off button if the user is an able to edit posts or pages.
-		if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
+			$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="width:' . $channel_options[ 'width' ] . ';float:' . $channel_options[ 'float' ] . ';">';
 
-			// Image to use for the switch
-			$switch_image   = $channel_options[ 'ison' ] ?
-		                  WP_TLKIO_URL . 'img/chat-on.png' :
-		                  WP_TLKIO_URL . 'img/chat-off.png';
+			// Display the on/off button if the user is an able to edit posts or pages.
+			if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
 
-      // Determine the switch state to turn to
-			$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
+				// Image to use for the switch
+				$switch_image   = $channel_options[ 'ison' ] ?
+			                  WP_TLKIO_URL . 'img/chat-on.png' :
+			                  WP_TLKIO_URL . 'img/chat-off.png';
 
-			$offchecked = $channel_options[ 'ison' ] ? '' : ' checked';
-			$onchecked = $channel_options[ 'ison' ] ? ' checked' : '';
+	      // Determine the switch state to turn to
+				$switch_function  = $channel_options[ 'ison' ] ? 'off' : 'on';
 
-			$output .=
-			'
-			<div class="tlkio-admin">
-				<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
-				<div class="tlkio-admin-bar">
-					<form method="post" class="tlkio-switch">
-						<div class="container">
-							<div class="switch">
-								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
-								<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
-								<label for="switch-off">Off</label>
-								<label for="switch-on">On</label>
-								<span class="toggle"></span>
+				$offchecked = $channel_options[ 'ison' ] ? '' : ' checked';
+				$onchecked = $channel_options[ 'ison' ] ? ' checked' : '';
+
+				$output .=
+				'
+				<div class="tlkio-admin">
+					<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
+					<div class="tlkio-admin-bar">
+						<form method="post" class="tlkio-switch">
+							<div class="container">
+								<div class="switch">
+									<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
+									<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
+									<label for="switch-off">Off</label>
+									<label for="switch-on">On</label>
+									<span class="toggle"></span>
+								</div> 
 							</div> 
-						</div> 
-					</form>
+						</form>
+					</div>
 				</div>
-			</div>
-			';
+				';
+			}
+
 		}
 
+		$output .= '<div class="chat-content">';
 		// If the chat room is on display this, otherwise display the custom message
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
@@ -88,6 +95,7 @@ class WP_TlkIo_Shortcode {
 			$output .= empty( $channel_options[ 'default_content' ] ) ? $wp_tlkio_options_default[ 'default_content' ] : $channel_options[ 'default_content' ];;
 			$output .= '</div>';
 		}
+		$output .= '</div>';
 
 		$output .= '</div>';
 
