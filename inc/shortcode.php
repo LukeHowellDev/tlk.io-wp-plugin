@@ -12,8 +12,6 @@ class WP_TlkIo_Shortcode {
 	function render_tlkio_shortcode( $atts, $content = '' ) {
 		global $wp_tlkio_shortcode_defaults, $wp_tlkio_options_default ;
 
-		// Do not reload the admin bar
-		$ajax = isset( $_POST[ 'noadmin' ] ) ? true : false;
 		// Extract the shortcode attributes to variables
 		extract(shortcode_atts( $wp_tlkio_shortcode_defaults, $atts) );
 
@@ -35,7 +33,7 @@ class WP_TlkIo_Shortcode {
 		
 		$output = '';
 
-		if( !$ajax ) { // Only run this when not an ajax call
+		if( !isset( $_POST[ 'noadmin' ] ) ) { // Only run this when not an ajax call
 
 			$channel_status = $channel_options[ 'ison' ] ? 'on' : 'off';
 
