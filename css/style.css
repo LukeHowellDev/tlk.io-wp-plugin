@@ -1,5 +1,5 @@
 .tlkio-channel { 
-  float: none;
+  float: left;
   padding: 5px;
   position: relative;
   min-height: 400px;
