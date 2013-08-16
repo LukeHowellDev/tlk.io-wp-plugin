@@ -74,7 +74,7 @@ class WP_TlkIo_Shortcode {
 			';
 		}
 
-		// If the chat room is on diplay is, otherwise display the custom message
+		// If the chat room is on display this, otherwise display the custom message
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
 			$output .= ' data-channel="' . $channel . '"';
