@@ -83,7 +83,7 @@ class WP_TlkIo_Shortcode {
 		if( $channel_options[ 'ison' ] ) {
 			$output .= '<div id="tlkio"';
 			$output .= ' data-channel="' . $channel . '"';
-			$output .= ' style="overflow:hidden;height:' . $channel_options[ 'height' ] . ';"';
+			$output .= ' style="overflow:auto;height:' . $channel_options[ 'height' ] . ';"';
 			$output .= ! empty( $stylesheet ) ? ' stylesheet="' . $stylesheet . '"' : '';
 			$output .= '></div>';
 			$output .= '<script async src="//tlk.io/embed.js" type="text/javascript"></script>';
