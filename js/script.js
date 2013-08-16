@@ -27,16 +27,6 @@ function tlkio_refresh() {
 
 // DOM is ready
 jQuery(function($) {
-	// Admin bar is hovered
-	// $( '.tlkio-admin' ).on({
-	// 	mouseenter: function() {
-	// 		$( this ).find( '.tlkio-admin-note' ).fadeIn();
-	// 	},
-	// 	mouseleave: function() {
-	// 		$( this ).find( '.tlkio-admin-note' ).fadeOut();
-	// 	}
-	// });
-
 	// tlk.io on/off switch is changed.
 	$( '.tlkio-switch input[type="radio"]' ).live( 'change', function() {
 		channel = $( this ).attr( 'name' );
@@ -46,7 +36,8 @@ jQuery(function($) {
 			{
 				'action': 'wp_tlkio_update_channel_state',
 				'channel': channel,
-				'state': state
+				'state': state,
+				'switch_clicked': true
 			},
 			function( response ) {
 				result = $.parseJSON( response );
