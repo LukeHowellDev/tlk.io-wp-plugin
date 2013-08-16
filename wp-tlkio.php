@@ -3,7 +3,7 @@
 Plugin Name: WP tlk.io
 Plugin URI: http://truemediaconcepts.com
 Description: A plugin to integrate <a href="http://tlk.io">tlk.io chat</a> on any page or post on your website using a shortcode. Insert a shortcode with the shortcode generator located in the WYSIWYG editor. There is currently no options page for this plugin.
-Version: 0.4
+Version: 0.5
 Author URI: http://truemediaconcepts.com/
 Author: True Media Concepts
 Author Email: support@truemediaconcepts.com

@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 0.4
+Stable tag: 0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,12 @@ or
 
 == Changelog ==
 
+= 0.5 =
+* Added a note to the admin bar clarifying that the bar is only visible to editors.
+* Added float option to the shortcode to specify a css float on the chat container.
+* Fixed bug causing chat window to overflow into content.
+* Fixed bug causing chat window size to display incorrect width when percentage of less than 100% is used.
+
 = 0.4 =
 * Adding AJAX to turn the chats on and off.
 * Adding AJAX to refresh users page if the chat is turned off during session.
@@ -71,6 +77,9 @@ or
 * Initial version
 
 == Upgrade notice ==
+
+= 0.5 =
+* Float option has been added to the shortcode.
 
 = 0.4 =
 * Styling has been added to the message displayed when chat is off.  If you want to remove the styling add a shortcode option of `offclass=""`.  You can alternatively add a custom class to that option and style it how you want.
