@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 0.5
+Stable tag: 0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,12 @@ or
 
 == Changelog ==
 
+= 0.6 =
+* Changed default float on chat container from none to left.
+* Added margin around container to help separate text when floated.
+* Fixed bug preventing scrolling of chat on touch devices.
+* Fixed bug causing admin bar note to disappear after clicking on/off switch.
+
 = 0.5 =
 * Added a note to the admin bar clarifying that the bar is only visible to editors.
 * Added float option to the shortcode to specify a css float on the chat container.
@@ -77,6 +83,9 @@ or
 * Initial version
 
 == Upgrade notice ==
+
+= 0.6 =
+* The default option for float has been chagned to 'left' instead of 'none'. If you want none use shortcode option `float="none"`.
 
 = 0.5 =
 * Float option has been added to the shortcode.
