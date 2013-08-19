@@ -27,16 +27,6 @@ function tlkio_refresh() {
 
 // DOM is ready
 jQuery(function($) {
-	// Admin bar is hovered
-	$( '.tlkio-admin' ).on({
-		mouseenter: function() {
-			$( this ).find( '.tlkio-admin-note' ).fadeIn();
-		},
-		mouseleave: function() {
-			$( this ).find( '.tlkio-admin-note' ).fadeOut();
-		}
-	});
-
 	// tlk.io on/off switch is changed.
 	$( '.tlkio-switch input[type="radio"]' ).live( 'change', function() {
 		channel = $( this ).attr( 'name' );
@@ -46,12 +36,19 @@ jQuery(function($) {
 			{
 				'action': 'wp_tlkio_update_channel_state',
 				'channel': channel,
+				'noadmin': true,
 				'state': state
 			},
 			function( response ) {
-				result = $.parseJSON( response );
-				$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
-				if( 'on' == result.state ) {
+				result        = $.parseJSON( response );
+				channel       = result.channel;
+				shortcode     = result.shortcode;
+				currentstate  = result.state;
+				previousstate = currentstate == 'on' ? 'off' : 'on';
+				$( "#wp-tlkio-channel-" + channel ).removeClass( previousstate );
+								$( "#wp-tlkio-channel-" + channel ).addClass( currentstate );
+				$( '#wp-tlkio-channel-' + channel + ' .chat-content' ).replaceWith( shortcode );
+				if( 'on' == state ) {
 					tlkio_refresh();
 				}
 			}
@@ -70,8 +67,10 @@ jQuery(function($) {
 					'channel': channel
 				},
 				function( response ) {
-					result = $.parseJSON( response );
-					if( !$( "#wp-tlkio-channel-" + result.channel ).hasClass( result.state ) ) {
+					result  = $.parseJSON( response );
+					channel = result.channel;
+					state   = result.state;
+					if( !$( "#wp-tlkio-channel-" + channel ).hasClass( state ) ) {
 						$.post(
 							WP_TlkIo.ajaxurl,
 							{
@@ -79,16 +78,20 @@ jQuery(function($) {
 								'channel': result.channel
 							},
 							function( response ) {
-								result = $.parseJSON( response );
-								$( '#wp-tlkio-channel-' + result.channel ).replaceWith( result.shortcode );
-								if( 'on' == result.state )
+								result        = $.parseJSON( response );
+								channel       = result.channel;
+								state         = result.state;
+								shortcode     = result.shortcode;
+								message       = result.message;
+								$( '#wp-tlkio-channel-' + channel ).replaceWith( shortcode );
+								if( 'on' == state )
 									tlkio_refresh();
-								$( '#wp-tlkio-channel-' + result.channel ).prepend( '<div id="tlkio-' + result.channel + '-message" class="tlkio-alert-message">' + result.message + '</div>' );
-								opening_timeout = 'on' == result.state ? 1000 : 250;
+								$( '#wp-tlkio-channel-' + channel ).prepend( '<div id="tlkio-' + channel + '-message" class="tlkio-alert-message">' + message + '</div>' );
+								opening_timeout = 'on' == state ? 1000 : 250;
 								setTimeout(function() {
-									$( '#tlkio-' + result.channel + '-message' ).slideDown(function() {
+									$( '#tlkio-' + channel + '-message' ).slideDown(function() {
 										setTimeout(function() {
-											$( '#tlkio-' + result.channel + '-message'  ).slideUp();
+											$( '#tlkio-' + channel + '-message'  ).slideUp();
 										}, 5000);	
 									});
 								}, opening_timeout);

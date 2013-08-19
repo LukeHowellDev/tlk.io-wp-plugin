@@ -1,5 +1,5 @@
 .tlkio-channel { 
-  float: none;
+  padding: 5px;
   position: relative;
   min-height: 400px;
   max-width: 100%;
@@ -17,7 +17,21 @@
   width: 95%;
   font-size: 12px;
   font-family: "helvetica neue";
-  display: none;
+  -webkit-transition: 400ms;
+  -moz-transition: 400ms;
+  -ms-transition: 400ms;
+  -o-transition: 400ms;
+  transition: 400ms;
+  opacity: 0;
+}
+
+.tlkio-admin:hover .tlkio-admin-note {
+  -webkit-transition: 400ms;
+  -moz-transition: 400ms;
+  -ms-transition: 400ms;
+  -o-transition: 400ms;
+  transition: 400ms;
+  opacity: 1;
 }
 
 .tlkio-channel .tlkio-admin-bar {
