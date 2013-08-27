@@ -61,8 +61,8 @@ class WP_TlkIo_Shortcode {
 					<div class="tlkio-admin-note">' . __( 'This bar is only viewable by admins.', WP_TLKIO_SLUG ) . '</div>
 					<div class="tlkio-admin-bar">
 						<form method="post" class="tlkio-switch">
-							<div class="container">
-								<div class="switch">
+							<div class="tlkio-container">
+								<div class="tlkio-switch">
 									<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="off" id="switch-off"' . $offchecked . '>
 									<input type="radio" name="' . $channel_options[ 'channel' ] . '" value="on"  id="switch-on"'  . $onchecked  . '>
 									<label for="switch-off">Off</label>

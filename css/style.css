@@ -49,7 +49,7 @@
   height: 64px;
   font-family: "helvetica neue";
 }
-.tlkio-channel .tlkio-admin-bar .container {
+.tlkio-channel .tlkio-admin-bar .tlkio-container {
   height: 32px;
   right: 50px;
   margin: 0;
@@ -57,7 +57,7 @@
   top: 16px;
   width: 80px;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch {
   background: #fff;
   border-radius: 16px;
   display: block;
@@ -65,7 +65,7 @@
   position: relative;
   width: 80px;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch label {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch label {
   color: #fff;
   font-size: 24px;
   font-weight: 300;
@@ -77,17 +77,17 @@
   transition: color 0.2s ease;
   width: 50px;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch label:nth-of-type(1) {
   left: -70%;
   position: absolute;
   text-align: right;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch label:nth-of-type(2) {
   position: absolute;
   right: -70%;
   text-align: left;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input {
   cursor: pointer;
   height: 32px;
   left: 0;
@@ -97,28 +97,28 @@
   width: 80px;
   z-index: 2;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input:checked ~ label:nth-of-type(1) {
   color: red;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input:checked ~ label:nth-of-type(2) {
   color: #808080;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ label:nth-of-type(1) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input ~ :checked ~ label:nth-of-type(1) {
   color: #808080;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ label:nth-of-type(2) {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input ~ :checked ~ label:nth-of-type(2) {
   color: green;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input:checked ~ .toggle {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input:checked ~ .toggle {
   left: 2px;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input ~ :checked ~ .toggle {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input ~ :checked ~ .toggle {
   left: 50px;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch input:checked {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch input:checked {
   z-index: 0;
 }
-.tlkio-channel .tlkio-admin-bar .container .switch .toggle {
+.tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch .toggle {
   background: #4a4a4a;
   border-radius: 50%;
   height: 28px;
