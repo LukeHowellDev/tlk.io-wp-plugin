@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 0.6
+Stable tag: 0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ or
 
 == Changelog ==
 
+= 0.7 =
+* Prevent conflicts with other plugins and themes.
+
 = 0.6 =
 * Changed default float on chat container from none to left.
 * Added margin around container to help separate text when floated.
@@ -83,6 +86,9 @@ or
 * Initial version
 
 == Upgrade notice ==
+
+= 0.7 =
+* Prevent conflicts with other plugins and themes.
 
 = 0.6 =
 * The default option for float has been chagned to 'left' instead of 'none'. If you want none use shortcode option `float="none"`.
