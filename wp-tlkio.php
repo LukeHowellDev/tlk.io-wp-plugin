@@ -40,13 +40,15 @@ $wp_tlkio_shortcode_defaults = array(
 	'stylesheet'  => '',
 	'offclass'    => 'offmessage',
 	'activated'   => __( 'The chat has been activated.', WP_TLKIO_SLUG ),
-	'deactivated' => __( 'The chat has been deactivated.', WP_TLKIO_SLUG )
+	'deactivated' => __( 'The chat has been deactivated.', WP_TLKIO_SLUG ),
+	'starton'     => '',
+	'alwayson'    => ''
 );
 
 // Options no included in the shortcode
 $wp_tlkio_options_default = array(
 	'default_content' => __( 'Chat is currently off.<br>Check back later.', WP_TLKIO_SLUG ),
-	'ison' => false
+	'ison' => null
 );
 
 // Combine the shortcodes

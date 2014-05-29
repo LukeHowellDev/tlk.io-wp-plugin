@@ -63,6 +63,8 @@ jQuery(function($) {
                 'css'         : '',
                 'offclass'    : '',
                 'activated'   : '',
+                'starton'     : '',
+                'alwayson'    : '',
                 'deactivated' : ''
                 };
             var shortcode = '[tlkio';
