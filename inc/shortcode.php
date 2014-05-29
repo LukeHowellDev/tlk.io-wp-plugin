@@ -29,8 +29,18 @@ class WP_TlkIo_Shortcode {
 		$channel_options[ 'offclass' ]        = $offclass;
 		$channel_options[ 'activated' ]       = $activated;
 		$channel_options[ 'deactivated' ]     = $deactivated;
+		$channel_options[ 'starton' ]         = strcasecmp($starton, 'yes') == 0;
+		$channel_options[ 'alwayson' ]        = strcasecmp($alwayson, 'yes') == 0;
 		$channel_options[ 'default_content' ] = $content;
-		
+
+		if( is_null( $channel_options[ 'ison' ] ) ) {
+			$channel_options[ 'ison' ] = $starton == 'yes' ? 'on' : 'off';
+		}
+
+		if( $channel_options[ 'alwayson' ] ) {
+			$channel_options[ 'ison' ] = 'on';
+		}
+
 		$output = '';
 
 		if( !isset( $_POST[ 'noadmin' ] ) ) { // Only run this when not an ajax call
@@ -42,7 +52,7 @@ class WP_TlkIo_Shortcode {
 			$output .= '<div class="tlkio-channel ' . $channel_status . $admin . '" id="wp-tlkio-channel-' . $channel . '" style="width:' . $channel_options[ 'width' ] . ';float:' . $channel_options[ 'float' ] . ';">';
 
 			// Display the on/off button if the user is an able to edit posts or pages.
-			if( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) {
+			if( ( current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages') ) && !$channel_options[ 'alwayson' ] ) {
 
 				// Image to use for the switch
 				$switch_image   = $channel_options[ 'ison' ] ?
@@ -182,6 +192,24 @@ class WP_TlkIo_Shortcode {
 	                          <td class="field">
 	                              <input name="deactivated" id="wp-tlkio-deactivated" class="wp-tlkio-input">
 	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'Specify a custom message to display when the chat is deactivated while a user is on the page.', WP_TLKIO_SLUG ) ) . '</span>
+	                          </td>
+	                      </tr>
+	                  </tbody>
+	                  <tbody>
+	                      <tr class="form-row">
+	                          <td class="label">' . sprintf( __( 'Start On', WP_TLKIO_SLUG ) ) . '</td>
+	                          <td class="field">
+	                              <input name="starton" id="wp-tlkio-starton" class="wp-tlkio-input">
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'When this option is set to "yes" the chat will be on during the first use without the admin having to turn on.  This option will only work when you have never used the tlk.io channel on your site.', WP_TLKIO_SLUG ) ) . '</span>
+	                          </td>
+	                      </tr>
+	                  </tbody>
+	                  <tbody>
+	                      <tr class="form-row">
+	                          <td class="label">' . sprintf( __( 'Always On', WP_TLKIO_SLUG ) ) . '</td>
+	                          <td class="field">
+	                              <input name="alwayson" id="wp-tlkio-alwayson" class="wp-tlkio-input">
+	                              <span class="wp-tlkio-form-desc">' . sprintf( __( 'When this option is set to "yes" the chat will always be on and admin bar will not display.', WP_TLKIO_SLUG ) ) . '</span>
 	                          </td>
 	                      </tr>
 	                  </tbody>
