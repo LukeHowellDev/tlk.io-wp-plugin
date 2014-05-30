@@ -3,8 +3,8 @@ Contributors: snumb130, bbodine1
 Donate link: 
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
-Tested up to: 3.6
-Stable tag: 0.7
+Tested up to: 3.9
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,8 @@ or
 * _offclass_        - Class to use for the message displayed when chat is off.  The default class is `offmessage`
 * _activated_       - Message to show if the chat is activated while users are on the page
 * _deactivated_     - Message to show if the chat is deactivated while users are on the page
+* _starton_         - When option is set to "yes" the chat will default to on
+* _alwayson_        - When option is set to "yes" the chat will always be on and the admin bar will not appear.
 * _Offline Message_ - This can tell the users of your webpage that you currently have the on page chat turned off. ex. 'Chat is scheduled for this/date/year. Come back then.'
 
 == Screenshots ==
@@ -52,6 +54,10 @@ or
 6. Shortcode Options
 
 == Changelog ==
+
+= 0.8 =
+* Added option to have chat start on initially.
+* Added option to have chat be always on.
 
 = 0.7 =
 * Prevent conflicts with other plugins and themes.
@@ -86,6 +92,9 @@ or
 * Initial version
 
 == Upgrade notice ==
+
+= 0.8 =
+* Added option to have chat start on initially and option to have chat be always on.
 
 = 0.7 =
 * Prevent conflicts with other plugins and themes.
