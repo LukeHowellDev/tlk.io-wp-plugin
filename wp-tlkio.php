@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: WP tlk.io
-Plugin URI: http://truemediaconcepts.com
+Plugin URI: http://vagrantcode.com
 Description: A plugin to integrate <a href="http://tlk.io">tlk.io chat</a> on any page or post on your website using a shortcode. Insert a shortcode with the shortcode generator located in the WYSIWYG editor. There is currently no options page for this plugin.
 Version: 0.8
-Author URI: http://truemediaconcepts.com/
-Author: True Media Concepts
-Author Email: support@truemediaconcepts.com
+Author URI: http://vagrantcode.com/
+Author: Vagrant Code
+Author Email: support@vagrantcode.com
 License: GPL2
 
-  Copyright 2013 Brad Bodine, Luke Howell (support@truemediaconcepts.com)
+  Copyright 2014 Brad Bodine, Luke Howell (support@vagrantcode.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
