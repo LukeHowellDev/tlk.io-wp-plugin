@@ -8,7 +8,7 @@ Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A plugin to integrate tlk.io chat on any page of your website. tlk.io ("talk·eeo") is a web chat that is open to anyone and channels are owner-free.
+A plugin to integrate tlk.io chat on any page of your website. tlk.io ("talk·eeo") is a web chat that is open to anyone.
 
 == Description ==
 
@@ -55,6 +55,9 @@ or
 
 == Changelog ==
 
+= 0.9 =
+* Update Supported Wordpress Version
+
 = 0.8 =
 * Added option to have chat start on initially.
 * Added option to have chat be always on.
@@ -92,6 +95,9 @@ or
 * Initial version
 
 == Upgrade notice ==
+
+= 0.9 =
+* UI improvements.
 
 = 0.8 =
 * Added option to have chat start on initially and option to have chat be always on.
