@@ -56,7 +56,8 @@ or
 == Changelog ==
 
 = 0.9 =
-* Update Supported Wordpress Version
+* Added Styling changes to the frontend admin bar
+* Fixed a css error with the admin on/off switch
 
 = 0.8 =
 * Added option to have chat start on initially.
@@ -97,7 +98,7 @@ or
 == Upgrade notice ==
 
 = 0.9 =
-* UI improvements.
+* UI improvements. Fix for a css error for admins.
 
 = 0.8 =
 * Added option to have chat start on initially and option to have chat be always on.

@@ -13,7 +13,7 @@
   z-index: 1;
   left: 2%;
   top: 5px;
-  color: #4A4A4A;
+  color: #888;
   width: 95%;
   font-size: 12px;
   font-family: "helvetica neue";
@@ -41,12 +41,12 @@
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
   background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
   background-color: #ddd;
-  border: 1px solid #444;
-  border-bottom-color: #666;
+  border: 1px solid #C7C7C7;
+  /*border-bottom-color: #666;*/
   border-radius: 5px 5px 0 0;
   font-size: 0;
   position: relative;
-  height: 64px;
+  height: 50px;
   font-family: "helvetica neue";
 }
 .tlkio-channel .tlkio-admin-bar .tlkio-container {
@@ -54,7 +54,7 @@
   right: 50px;
   margin: 0;
   position: absolute;
-  top: 16px;
+  top: 9px;
   width: 80px;
 }
 .tlkio-channel .tlkio-admin-bar .tlkio-container .tlkio-switch {
