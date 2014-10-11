@@ -3,7 +3,7 @@ Contributors: snumb130, bbodine1
 Donate link: 
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
