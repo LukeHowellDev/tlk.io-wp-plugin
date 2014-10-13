@@ -4,7 +4,7 @@ Donate link:
 Tags: chat, tlk.io, tlkio
 Requires at least: 2.8
 Tested up to: 4.0
-Stable tag: 0.9
+Stable tag: 0..1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ or
 6. Shortcode Options
 
 == Changelog ==
+
+= 0.9.1 =
+* Fix styling on thickbox in admin menu.
 
 = 0.9 =
 * Added Styling changes to the frontend admin bar
